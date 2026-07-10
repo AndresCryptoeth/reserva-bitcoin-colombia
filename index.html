@@ -2,23 +2,1363 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Abelardo NFT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reserva Estratégica de Activos Digitales para Colombia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-body{font-family:Arial;background:linear-gradient(135deg,#1a1a2e,#0f3460);color:#fff;text-align:center;margin:0}
-header{padding:50px;background:linear-gradient(135deg,#e94560,#ff6b6b)}
-h1{margin:0}
-.card{background:rgba(255,255,255,0.1);border-radius:20px;padding:30px;max-width:400px;margin:30px auto}
-img{width:150px;height:150px;border-radius:50%;border:4px solid #e94560}
-.whatsapp{display:inline-block;padding:15px 30px;background:#25d366;color:#fff;text-decoration:none;border-radius:30px}
+:root{
+  --fondo:#0D211D;          /* verde esmeralda profundo — las arcas */
+  --panel:#132B26;
+  --panel-2:#0F2622;
+  --linea:#22453D;
+  --tinta:#EAF3EE;
+  --tinta-suave:#9DBBB0;
+  --oro:#D8B36A;            /* oro reserva */
+  --btc:#F7931A;            /* naranja bitcoin */
+  --verde-ok:#5FD68B;
+  --rojo:#E56A5A;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--fondo);
+  color:var(--tinta);
+  font-family:'Archivo',system-ui,sans-serif;
+  font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+
+/* ---------- encabezado ---------- */
+header{
+  border-bottom:1px solid var(--linea);
+  padding:18px 0;
+  position:sticky;top:0;background:rgba(13,33,29,.92);backdrop-filter:blur(8px);z-index:50;
+}
+header .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.marca{font-weight:700;letter-spacing:.02em;font-size:.95rem}
+.marca span{color:var(--btc)}
+.precio-vivo{font-family:'IBM Plex Mono',monospace;font-size:.8rem;color:var(--tinta-suave)}
+.precio-vivo b{color:var(--oro)}
+
+/* ---------- héroe ---------- */
+.hero{padding:72px 0 40px;position:relative;overflow:hidden}
+.eyebrow{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--oro);margin-bottom:18px;
+}
+h1{
+  font-family:'Archivo',sans-serif;
+  font-variation-settings:'wdth' 118;
+  font-weight:750;font-size:clamp(2.1rem,5.4vw,3.9rem);
+  line-height:1.04;letter-spacing:-.015em;max-width:19ch;
+}
+h1 em{font-style:normal;color:var(--btc)}
+.hero p.lede{max-width:62ch;color:var(--tinta-suave);margin-top:22px;font-size:1.05rem}
+.hero .fuente{margin-top:14px;font-size:.78rem;color:var(--tinta-suave);opacity:.8}
+
+/* ---------- contador (firma) ---------- */
+.contador{
+  margin:44px 0 0;
+  border:1px solid var(--linea);
+  background:linear-gradient(180deg,var(--panel) 0%,var(--panel-2) 100%);
+  border-radius:14px;padding:30px clamp(18px,4vw,44px);
+  position:relative;
+}
+.contador::before{
+  content:"LIBRO PÚBLICO DE LA RESERVA · SIMULACIÓN EN VIVO";
+  position:absolute;top:-9px;left:24px;
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.18em;
+  color:var(--oro);background:var(--fondo);padding:0 10px;
+}
+.contador-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px;align-items:end}
+@media(max-width:820px){.contador-grid{grid-template-columns:1fr;gap:18px}}
+.cifra-label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-suave);margin-bottom:6px;font-family:'IBM Plex Mono',monospace}
+.cifra-grande{
+  font-family:'IBM Plex Mono',monospace;font-weight:600;
+  font-size:clamp(2.2rem,6vw,4.2rem);line-height:1;color:var(--btc);
+  font-variant-numeric:tabular-nums;
+}
+.cifra-grande small{font-size:.38em;color:var(--tinta-suave);font-weight:500}
+.cifra-media{font-family:'IBM Plex Mono',monospace;font-size:clamp(1.2rem,3vw,1.8rem);color:var(--oro);font-variant-numeric:tabular-nums}
+.cifra-media.blanca{color:var(--tinta)}
+.tira-compras{
+  margin-top:26px;border-top:1px dashed var(--linea);padding-top:14px;
+  display:flex;gap:26px;overflow:hidden;white-space:nowrap;position:relative;
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.tira-inner{display:flex;gap:26px;animation:desliza 40s linear infinite}
+@media (prefers-reduced-motion: reduce){.tira-inner{animation:none}}
+@keyframes desliza{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.compra{font-family:'IBM Plex Mono',monospace;font-size:.74rem;color:var(--tinta-suave)}
+.compra b{color:var(--verde-ok);font-weight:500}
+
+/* ---------- secciones ---------- */
+section{padding:64px 0;border-top:1px solid var(--linea)}
+h2{
+  font-variation-settings:'wdth' 116;font-weight:720;
+  font-size:clamp(1.5rem,3.2vw,2.2rem);line-height:1.15;letter-spacing:-.01em;
+  max-width:26ch;margin-bottom:14px;
+}
+.sub{color:var(--tinta-suave);max-width:64ch;margin-bottom:34px}
+
+/* ---------- panel SAE ---------- */
+.datos-sae{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:26px}
+@media(max-width:820px){.datos-sae{grid-template-columns:1fr}}
+.dato{
+  border:1px solid var(--linea);border-radius:12px;padding:20px 22px;background:var(--panel-2);
+}
+.dato.positivo{border-color:rgba(95,214,139,.55)}
+.dato.negativo{border-color:rgba(229,106,90,.55)}
+.dato .num{font-family:'IBM Plex Mono',monospace;font-size:1.7rem;font-weight:600;color:var(--oro);font-variant-numeric:tabular-nums}
+.dato .desc{font-size:.82rem;color:var(--tinta-suave);margin-top:6px}
+.nota-fuentes{font-size:.75rem;color:var(--tinta-suave);opacity:.85;max-width:70ch}
+.nota-fuentes a{color:var(--oro)}
+
+/* ---------- simulador ---------- */
+.sim{display:grid;grid-template-columns:340px 1fr;gap:34px;align-items:start}
+@media(max-width:920px){.sim{grid-template-columns:1fr}}
+.controles{border:1px solid var(--linea);border-radius:14px;padding:24px;background:var(--panel)}
+.control{margin-bottom:24px}
+.control label{display:flex;justify-content:space-between;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-suave);margin-bottom:8px;font-family:'IBM Plex Mono',monospace}
+.control label output{color:var(--oro);font-weight:600;text-transform:none;letter-spacing:0}
+input[type=range]{
+  width:100%;appearance:none;height:4px;border-radius:2px;background:var(--linea);outline:none;
+}
+input[type=range]::-webkit-slider-thumb{
+  appearance:none;width:18px;height:18px;border-radius:50%;background:var(--btc);
+  border:3px solid var(--fondo);box-shadow:0 0 0 1px var(--btc);cursor:pointer;
+}
+input[type=range]:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 3px var(--oro)}
+input[type=number]{
+  width:100%;background:var(--panel-2);border:1px solid var(--linea);border-radius:8px;
+  color:var(--tinta);font-family:'IBM Plex Mono',monospace;font-size:.95rem;padding:9px 12px;
+}
+input[type=number]:focus-visible{outline:2px solid var(--oro);outline-offset:1px}
+.escenarios{display:flex;gap:8px;flex-wrap:wrap}
+.escenarios button{
+  flex:1;min-width:80px;background:var(--panel-2);border:1px solid var(--linea);border-radius:8px;
+  color:var(--tinta-suave);font-family:'IBM Plex Mono',monospace;font-size:.72rem;padding:9px 6px;cursor:pointer;
+}
+.escenarios button.activo{border-color:var(--btc);color:var(--btc)}
+.escenarios button:focus-visible{outline:2px solid var(--oro)}
+.resultados{display:grid;gap:16px}
+.res-fila{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:680px){.res-fila{grid-template-columns:1fr}}
+.res{
+  border:1px solid var(--linea);border-radius:12px;padding:18px 20px;background:var(--panel-2);
+}
+.res .v{font-family:'IBM Plex Mono',monospace;font-size:1.45rem;font-weight:600;color:var(--tinta);font-variant-numeric:tabular-nums}
+.res .v.naranja{color:var(--btc)}
+.res .v.dorado{color:var(--oro)}
+.res .l{font-size:.74rem;color:var(--tinta-suave);margin-top:5px}
+canvas{width:100%;border:1px solid var(--linea);border-radius:12px;background:var(--panel-2)}
+.leyenda{display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;font-size:.74rem;color:var(--tinta-suave);font-family:'IBM Plex Mono',monospace}
+.leyenda i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+/* ---------- comparación países ---------- */
+.barras{display:grid;gap:14px;margin-top:8px}
+.barra-fila{display:grid;grid-template-columns:150px 1fr 130px;gap:14px;align-items:center;font-size:.85rem}
+@media(max-width:680px){.barra-fila{grid-template-columns:110px 1fr 100px;font-size:.75rem}}
+.barra-pista{height:22px;background:var(--panel-2);border:1px solid var(--linea);border-radius:6px;overflow:hidden}
+.barra-relleno{height:100%;border-radius:5px;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.barra-num{font-family:'IBM Plex Mono',monospace;color:var(--oro);text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- pilares ---------- */
+.pilares{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+@media(max-width:820px){.pilares{grid-template-columns:1fr}}
+.pilar{border:1px solid var(--linea);border-radius:12px;padding:22px;background:var(--panel-2)}
+.pilar h3{font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--oro)}
+.pilar p{font-size:.88rem;color:var(--tinta-suave)}
+.pilar .tag{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.16em;color:var(--btc);text-transform:uppercase;display:block;margin-bottom:10px}
+
+/* ---------- cronología ---------- */
+.timeline{border-left:2px solid var(--linea);margin:28px 0 8px 8px;padding-left:26px;display:grid;gap:20px}
+.hito{position:relative}
+.hito::before{content:"";position:absolute;left:-33px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--rojo);border:3px solid var(--fondo)}
+.hito.entrada::before{background:var(--oro)}
+.hito .fecha{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.14em;color:var(--rojo);text-transform:uppercase}
+.hito.entrada .fecha{color:var(--oro)}
+.hito .titulo{font-weight:700;font-size:.95rem;margin:2px 0}
+.hito p{font-size:.84rem;color:var(--tinta-suave)}
+.cadencia{border:1px solid var(--rojo);border-radius:12px;padding:20px 24px;margin-top:26px;background:var(--panel-2)}
+.cadencia .num{font-family:'IBM Plex Mono',monospace;font-size:1.6rem;font-weight:600;color:var(--rojo)}
+
+/* ---------- alta gama: nav, CTAs, reveal, hover ---------- */
+.nav-links{display:flex;gap:22px;align-items:center}
+.nav-links a{color:var(--tinta-suave);text-decoration:none;font-size:.78rem;letter-spacing:.04em;transition:color .2s}
+.nav-links a:hover{color:var(--btc)}
+@media(max-width:960px){.nav-links a:not(.btn-cta){display:none}}
+.btn-cta{
+  display:inline-block;background:var(--btc);color:#1a1108 !important;border-radius:9px;
+  padding:10px 20px;font-weight:700;font-size:.82rem;text-decoration:none;letter-spacing:.02em;
+  transition:transform .18s, box-shadow .18s;
+}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(247,147,26,.35)}
+.btn-ghost{
+  display:inline-block;border:1px solid var(--oro);color:var(--oro);border-radius:9px;
+  padding:10px 20px;font-weight:600;font-size:.82rem;text-decoration:none;transition:all .18s;
+}
+.btn-ghost:hover{background:rgba(216,179,106,.1);transform:translateY(-2px)}
+.hero-ctas{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap}
+.hero-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:28px}
+.dato .preg{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--btc);font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.hero-grid .desc{font-size:.84rem;color:var(--tinta-suave)}
+
+.hero::after{
+  content:"";position:absolute;top:-30%;right:-15%;width:60%;height:120%;pointer-events:none;
+  background:radial-gradient(ellipse at center, rgba(247,147,26,.09) 0%, transparent 60%);
+}
+.hero .wrap{position:relative;z-index:1}
+
+.dato,.pilar,.res{transition:transform .22s, border-color .22s}
+.dato:hover,.pilar:hover{transform:translateY(-4px);border-color:var(--oro)}
+.dato.positivo:hover{border-color:var(--verde-ok)}
+.dato.negativo:hover{border-color:var(--rojo)}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1), transform .7s cubic-bezier(.2,.7,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ---------- cuenta final ---------- */
+.cuenta-fila{
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px;
+  padding:11px 0;border-bottom:1px dashed var(--linea);font-size:.88rem;color:var(--tinta-suave);
+}
+.cuenta-fila b{font-family:'IBM Plex Mono',monospace;font-size:1.05rem;white-space:nowrap;color:var(--tinta)}
+.cuenta-fila.total{border-bottom:none;border-top:2px solid var(--linea);margin-top:4px;padding-top:14px;color:var(--tinta);font-weight:600}
+.cuenta-fila.total b{font-size:1.3rem}
+
+/* ---------- ciclo 48 meses ---------- */
+.ciclo-controles{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px;align-items:end}
+.ciclo-controles .campo{flex:1;min-width:150px}
+.ciclo-controles label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-suave);margin-bottom:6px}
+.btn-play{
+  background:var(--btc);color:#1a1108;border:none;border-radius:8px;padding:11px 22px;
+  font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:.85rem;cursor:pointer;
+}
+.btn-play:focus-visible{outline:3px solid var(--oro)}
+.lector{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0}
+@media(max-width:820px){.lector{grid-template-columns:repeat(2,1fr)}}
+.lector .res .v{font-size:1.15rem}
+footer{border-top:1px solid var(--linea);padding:36px 0 56px;font-size:.78rem;color:var(--tinta-suave)}
+footer b{color:var(--oro)}
+.aviso{border:1px solid var(--linea);border-left:3px solid var(--rojo);border-radius:8px;padding:14px 18px;margin-top:18px;font-size:.78rem;color:var(--tinta-suave)}
 </style>
 </head>
 <body>
-<header><h1>Abelardo de la Espriella - NFT</h1></header>
-<div class="card">
-<img src="https://ui-avatars.com/api/?name=Andres+Guzman&background=e94560&color=fff">
-<h2>Andres Guzman</h2>
-<p>Consultor Principal</p>
+
+<header>
+  <div class="wrap">
+    <div class="marca">Reserva Estratégica de <span>Activos Digitales</span> · Colombia</div>
+    <nav class="nav-links" aria-label="Secciones">
+      <a href="#sae">El problema</a>
+      <a href="#simulador">La solución</a>
+      <a href="#mundo">La prueba</a>
+      <a href="#ruta">La ruta</a>
+      <a href="#pedido" class="btn-cta">El pedido →</a>
+    </nav>
+    <div class="precio-vivo">BTC/USD <b id="hPrecio">—</b> · TRM <b id="hTrm">—</b> <span id="hFuentePrecio"></span></div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HÉROE ============ -->
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Propuesta de política pública · Documento ejecutivo · Lectura: 5 minutos</div>
+    <h1>Colombia puede construir una reserva estratégica de <em>activos digitales</em> sin aumentar el gasto público ni crear nuevos impuestos.</h1>
+    <p class="lede">
+      El Estado ya posee el patrimonio: los bienes de extinción de dominio que hoy generan altos costos de
+      administración y baja productividad. Esta propuesta plantea una alternativa de política pública para
+      estudiar la transformación de parte de ese patrimonio en una reserva estratégica de activos digitales,
+      bajo un modelo transparente, auditable y verificable mediante tecnología blockchain — con el objetivo
+      de fortalecer el patrimonio estratégico de la Nación y crear una nueva fuente de ingresos para el
+      Estado, sujeta a las reglas y mecanismos definidos por su implementación.
+    </p>
+
+    <div class="cadencia" style="border-color:var(--oro);margin-top:26px">
+      <div class="num" style="color:var(--oro);font-size:clamp(1.25rem,2.4vw,1.6rem);line-height:1.45">"No proponemos comprar una reserva estratégica con dinero de los colombianos. Proponemos construirla aprovechando patrimonio que el Estado ya posee."</div>
+    </div>
+
+    <div class="hero-grid">
+      <div class="dato"><div class="preg">¿Qué propone?</div><div class="desc">Transformar parte del patrimonio de extinción de dominio en una reserva estratégica de activos digitales, con compras regladas por ley y custodia multifirma del Estado.</div></div>
+      <div class="dato"><div class="preg">¿Cuánto cuesta?</div><div class="desc">COP 0 adicionales. Ni presupuesto nuevo, ni impuestos, ni deuda: solo redirigir recursos que ya se generan en los remates.</div></div>
+      <div class="dato"><div class="preg">¿Por qué al Gobierno?</div><div class="desc">Propone una alternativa para transformar patrimonio subutilizado en un activo estratégico con potencial de fortalecer las finanzas públicas.</div></div>
+      <div class="dato"><div class="preg">¿Por qué creerle?</div><div class="desc">Cifras públicas de la SAE, la Contraloría y la Procuraduría. EE. UU., Brasil y El Salvador ya recorren este camino — verificable en línea, ahora mismo.</div></div>
+      <div class="dato"><div class="preg">¿Qué se solicita hoy?</div><div class="desc">No aprobar la propuesta: conformar una mesa técnica que evalúe su viabilidad jurídica, financiera y operativa.</div></div>
+    </div>
+
+    <div class="hero-ctas">
+      <a href="#simulador" class="btn-cta">Ver la propuesta en números →</a>
+      <a href="#ruta" class="btn-ghost">Cómo podría implementarse →</a>
+    </div>
+    <p class="fuente">Simulación construida con cifras públicas de la SAE, la TRM oficial y el precio de mercado de los activos. Ajusta los supuestos abajo.</p>
+
+    <!-- FIRMA: el contador -->
+    <div class="contador" role="region" aria-label="Contador simulado de la reserva">
+      <div class="contador-grid">
+        <div>
+          <div class="cifra-label">Bitcoin acumulado · año 1 (365 compras)</div>
+          <div class="cifra-grande" id="cBtcAno">0.00 <small>BTC</small></div>
+        </div>
+        <div>
+          <div class="cifra-label">Compra diaria simulada</div>
+          <div class="cifra-media" id="cBtcDia">— BTC/día</div>
+        </div>
+        <div>
+          <div class="cifra-label">Sats por colombiano · año 1</div>
+          <div class="cifra-media blanca" id="cSats">— sats</div>
+        </div>
+      </div>
+      <div class="tira-compras" aria-hidden="true">
+        <div class="tira-inner" id="tira"></div>
+      </div>
+    </div>
+  </div>
 </div>
-<a href="https://wa.me/573001234567" class="whatsapp">WhatsApp</a>
+
+<!-- ============ LA SAE EN CIFRAS ============ -->
+<section id="sae">
+  <div class="wrap">
+    <div class="eyebrow">01 · El problema · El punto de partida</div>
+    <h2>El Estado administra miles de activos físicos con altos costos, riesgos de deterioro y baja productividad. Esta propuesta los convertiría en valor: verificable, transparente, incorruptible — para todos los colombianos.</h2>
+    <p class="sub">
+      Una parte importante de ese patrimonio proviene de los procesos de extinción de dominio administrados
+      por la SAE. Nada de esto es opinión: son cifras públicas de la SAE, la Contraloría y la Procuraduría.
+      Y nada de esto cuesta: ni presupuesto nuevo, ni impuestos, ni deuda — solo redirigir lo que ya se remata.
+    </p>
+
+    <div class="eyebrow" style="margin-bottom:14px;color:var(--verde-ok)">La máquina que ya existe · lo positivo</div>
+    <div class="datos-sae">
+      <div class="dato positivo"><div class="num">38.000+</div><div class="desc">Activos administrados en todo el país: inmuebles, vehículos, sociedades y establecimientos de comercio.</div></div>
+      <div class="dato positivo"><div class="num">COP 1,14 billones</div><div class="desc">Recaudo 2025 por venta de 783 inmuebles — 241% sobre la meta. Los remates ágiles ya funcionan.</div></div>
+      <div class="dato positivo"><div class="num">15–40%</div><div class="desc">Descuentos vigentes en remates ("Política de Precio Mínimo"). El incentivo al comprador ya existe.</div></div>
+    </div>
+
+    <div class="eyebrow" style="margin:30px 0 14px;color:var(--rojo)">Lo que cuesta cargarla · lo que debemos cambiar</div>
+    <div class="datos-sae">
+      <div class="dato negativo"><div class="num">+500 cargos burocráticos</div><div class="desc">383 de planta, más contratistas y una red de depositarios en todo el país. Una reserva de Bitcoin se opera con menos del 5% de esta plantilla.</div></div>
+      <div class="dato negativo"><div class="num">COP 50+ mil M/año</div><div class="desc">Solo en gastos de funcionamiento de la SAE. Una reserva estratégica de Bitcoin se administra con menos del 5% de ese presupuesto.</div></div>
+      <div class="dato negativo"><div class="num">−94,9%</div><div class="desc">Las retomas de bienes ocupados se desplomaron en un año. El Estado dejó de recuperar lo suyo: ocuparlo se volvió gratis — y recuperarlo es muy desgastante y costoso.</div></div>
+    </div>
+
+    <div class="cadencia" style="margin-top:30px">
+      <div class="num" style="font-size:1.25rem;line-height:1.3">Un bien físico se invade, se deteriora, exige custodia y gestión de desalojo. La reserva de Bitcoin en custodia fría y estructura multifirma no puede ser confiscada: soberanía absoluta y liquidez inmediata.</div>
+      <p style="font-size:.84rem;color:var(--tinta-suave);margin-top:8px">
+        Nadie invade una llave privada. Nadie subarrienda una dirección multifirma. Nadie deja pudrir un satoshi
+        en un patio. El problema de la SAE no es de gerentes: es del tipo de activo que administra.
+      </p>
+    </div>
+
+    <div class="eyebrow" style="margin-top:44px">La reflexión final · Mismo dinero, dos destinos</div>
+
+    <div style="border:1px solid var(--linea);border-radius:14px;background:var(--panel);padding:26px">
+      <div class="cifra-label" style="color:var(--rojo);margin-bottom:14px">Costo de oportunidad anual · Medido en BTC a precio spot</div>
+      <div class="cuenta-fila"><span>COP 50+ mil millones/año en funcionamiento de la SAE</span><b id="cf1">—</b></div>
+      <div class="cuenta-fila"><span>COP 58 mil millones en cuentas por cobrar perdidas</span><b id="cf2">—</b></div>
+      <div class="cuenta-fila"><span>COP 8.839 millones en riesgo por los 22 hallazgos de la Contraloría</span><b id="cf3">—</b></div>
+      <div class="cuenta-fila total"><span>Solo el costo del desorden: COP 117+ mil millones cada año</span><b id="cfTotal" style="color:var(--rojo)">—</b></div>
+
+      <div class="cifra-label" style="color:var(--btc);margin:24px 0 14px">Y la máquina productiva</div>
+      <div class="cuenta-fila total"><span>COP 1,14 billones/año — el recaudo real de los remates 2025</span><b id="cfRecaudo" style="color:var(--btc)">—</b></div>
+
+      <p style="font-size:.9rem;color:var(--tinta);margin-top:20px" id="cfResumen">
+        —
+      </p>
+    </div>
+    <p class="nota-fuentes" style="margin-top:20px">
+      Fuentes: rendición de cuentas SAE 2025 (El Tiempo, mar. 2026) · Auditorías de la Contraloría General
+      (2023; feb. 2026) · Procuraduría General (2022) · Respuesta oficial de la SAE al Congreso (planta de 383
+      cargos; presupuesto de funcionamiento 2020 de COP 50.469 millones, adicionado) · Acción popular FEDe
+      Colombia (2024) · Investigación de Cambio Colombia (2023). Los valores son aproximados y se usan como
+      supuestos de simulación y contexto ciudadano, no como cifras auditadas por esta página.
+    </p>
+  </div>
+</section>
+
+<!-- ============ SIMULADOR ============ -->
+<section id="simulador">
+  <div class="wrap">
+    <div class="eyebrow">02 · La solución · El simulador</div>
+    <h2>365 compras al año. Un libro contable que no se puede maquillar.</h2>
+    <p class="sub">
+      Estrategia DCA (promedio de costo en dólares): el monto anual destinado se divide en 365 compras diarias
+      idénticas, publicadas on-chain. Mueve los supuestos y mira qué reserva construiría Colombia.
+    </p>
+
+    <div class="sim">
+      <div class="controles">
+        <div class="control">
+          <label for="rRecaudo">Recaudo anual destinado <output id="oRecaudo">COP 1,14 B</output></label>
+          <input type="range" id="rRecaudo" min="0.2" max="6" step="0.02" value="1.14" aria-label="Recaudo anual en billones de pesos">
+          <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--tinta-suave);margin-top:4px" class="mono"><span>0,2 B</span><span>billones COP/año</span><span>6 B</span></div>
+        </div>
+        <div class="control">
+          <label for="nPrecio">Precio BTC (USD)</label>
+          <input type="number" id="nPrecio" value="60000" min="1000" step="500">
+        </div>
+        <div class="control">
+          <label for="nTrm">TRM (COP por USD)</label>
+          <input type="number" id="nTrm" value="3441" min="1000" step="10">
+        </div>
+        <div class="control">
+          <label>¿Qué tan rápido sube el precio de BTC? (escenario a 10 años)</label>
+          <div class="escenarios" role="group" aria-label="Escenario de crecimiento anual">
+            <button data-cagr="0.10">Cauteloso<br>+10%/año</button>
+            <button data-cagr="0.21" class="activo">Moderado<br>+21%/año</button>
+            <button data-cagr="0.40">Histórico<br>+40%/año</button>
+          </div>
+        </div>
+        <div class="control" style="margin-bottom:0">
+          <label for="rAnios">Horizonte de custodia <output id="oAnios">10 años</output></label>
+          <input type="range" id="rAnios" min="1" max="20" step="1" value="10" aria-label="Años de custodia">
+        </div>
+      </div>
+
+      <div class="resultados">
+        <div class="res-fila">
+          <div class="res"><div class="v dorado" id="rDiaCop">—</div><div class="l">Compra diaria (COP)</div></div>
+          <div class="res"><div class="v" id="rDiaUsd">—</div><div class="l">Compra diaria (USD)</div></div>
+          <div class="res"><div class="v naranja" id="rDiaBtc">—</div><div class="l">Bitcoin por día, al precio de hoy</div></div>
+        </div>
+        <div class="res-fila">
+          <div class="res"><div class="v naranja" id="rBtcAno1">—</div><div class="l">BTC en el año 1 · la cuenta que puedes hacer a mano: <span class="mono" id="rCuenta">—</span></div></div>
+          <div class="res"><div class="v naranja" id="rBtcTotal">—</div><div class="l">BTC al final del horizonte</div></div>
+          <div class="res"><div class="v dorado" id="rValorFinal">—</div><div class="l">Valor final de la reserva · <span class="mono" id="rMultiplo"></span> sobre lo invertido</div></div>
+        </div>
+
+        <div class="cadencia" style="border-color:var(--btc)">
+          <p style="font-size:.88rem;color:var(--tinta)">
+            <b style="color:var(--btc)">¿Por qué no da BTC/día × 365 × años?</b>
+            Porque en el escenario elegido el precio sube cada año — y con el mismo dinero se compran menos BTC.
+            <b style="color:var(--oro)">Esa es exactamente la razón para empezar YA: cada año de espera, Colombia compra menos bitcoin con la misma plata.</b>
+          </p>
+        </div>
+
+        <div>
+          <div class="cifra-label" style="margin-bottom:8px">La reserva vs. lo invertido (USD) — la curva del DCA</div>
+          <canvas id="chart" height="300" aria-label="Valor de la reserva frente a capital invertido" role="img"></canvas>
+          <div class="leyenda">
+            <span><i style="background:var(--oro)"></i>Valor de la reserva</span>
+            <span><i style="background:#9DBBB0"></i>Capital invertido (línea punteada)</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="cifra-label" style="margin-bottom:8px">BTC comprados cada año — el costo de esperar</div>
+          <canvas id="chartBtc" height="170" aria-label="Bitcoin comprado por año" role="img"></canvas>
+          <p style="font-size:.75rem;color:var(--tinta-suave);margin-top:8px">
+            Cada barra es un año de compras diarias. Las barras se encogen porque el precio sube:
+            el país que entra en el año 1 acumula mucho más que el que entra en el año 5. El mejor momento es ahora.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RETROSPECTIVA ============ -->
+<section id="retro">
+  <div class="wrap">
+    <div class="eyebrow">03 · La prueba retrospectiva · Con precios históricos reales</div>
+    <h2>¿Y si el gobierno anterior hubiera empezado el 7 de agosto de 2022?</h2>
+    <p class="sub">
+      Esto ya no es un escenario: es historia. Tomamos el precio real de Bitcoin de cada día desde el inicio
+      del cuatrienio pasado — atravesando el colapso de FTX, el halving de abril 2024 y el techo de 2025 —
+      y simulamos la misma compra diaria de esta propuesta. Este es el patrimonio que el gobierno saliente
+      le estaría entregando hoy a Colombia.
+    </p>
+
+    <div style="border:1px solid var(--linea);border-radius:14px;background:var(--panel);padding:24px">
+      <div class="ciclo-controles">
+        <div class="campo"><label for="rCompraRetro">Compra diaria (USD)</label><input type="number" id="rCompraRetro" value="800000" min="1000" step="10000"></div>
+        <div class="campo" style="flex:2;align-self:center"><span style="font-size:.78rem;color:var(--tinta-suave)" id="retroFuente">Serie histórica: cargando datos reales…</span></div>
+      </div>
+
+      <div class="res-fila" style="margin-top:6px">
+        <div class="res"><div class="v naranja" id="retroBtc">—</div><div class="l">BTC que se entregarían HOY</div></div>
+        <div class="res"><div class="v" id="retroInv">—</div><div class="l">Capital invertido en el cuatrienio · precio promedio <span class="mono" id="retroProm">—</span></div></div>
+        <div class="res"><div class="v dorado" id="retroValor">—</div><div class="l">Valor hoy, a precio spot · <span class="mono" id="retroMult"></span> sobre lo invertido</div></div>
+      </div>
+
+      <canvas id="retroChart" height="360" aria-label="Retrospectiva con precios históricos reales" role="img"></canvas>
+      <div class="leyenda">
+        <span><i style="background:var(--oro)"></i>Precio BTC histórico real</span>
+        <span><i style="background:var(--btc)"></i>BTC acumulado</span>
+      </div>
+
+      <div class="cadencia" style="border-color:var(--rojo);margin-top:20px">
+        <div class="num" style="color:var(--rojo);font-size:1.15rem;line-height:1.35" id="retroPunch">—</div>
+        <p style="font-size:.8rem;color:var(--tinta-suave);margin-top:8px">
+          Esta simulación usa precios históricos reales de mercado — no proyecciones. Incluye el colapso de FTX
+          (noviembre 2022), el halving (abril 2024, línea verde) y el ciclo completo. La estrategia DCA no
+          esquivó ninguna crisis: las atravesó todas comprando, y ese es exactamente el punto.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CICLO 48 MESES ============ -->
+<section id="ciclo">
+  <div class="wrap">
+    <div class="eyebrow">04 · La prueba del ciclo · 48 meses comprando todos los días</div>
+    <h2>¿Qué pasa si Colombia compra USD 800.000 diarios durante el mandato completo?</h2>
+    <p class="sub">
+      48 meses: exactamente un cuatrienio presidencial (2026 → 2030) — y contiene el ciclo perfecto de Bitcoin.
+      Entra en el piso proyectado (octubre 2026), atraviesa el halving de abril 2028 y captura el techo del ciclo
+      hacia finales de 2029. La lección que enseña es la más importante de todas:
+      <b style="color:var(--tinta)">al comprar todos los días, los precios bajos son un regalo</b> — es cuando el
+      Estado acumula más bitcoin por el mismo dinero. Presiona ▶ y mira correr el mandato.
+    </p>
+
+    <div style="border:1px solid var(--linea);border-radius:14px;background:var(--panel);padding:24px">
+      <div class="ciclo-controles">
+        <div class="campo"><label for="cCompra">Compra diaria (USD)</label><input type="number" id="cCompra" value="800000" min="1000" step="10000"></div>
+        <div class="campo"><label for="cPiso">Piso del ciclo (USD)</label><input type="number" id="cPiso" value="42000" min="1000" step="1000"></div>
+        <div class="campo"><label for="cTecho">Techo del ciclo (USD)</label><input type="number" id="cTecho" value="240000" min="10000" step="5000"></div>
+        <button class="btn-play" id="btnPlay">▶ Correr 48 meses</button>
+      </div>
+
+      <div class="lector">
+        <div class="res"><div class="v mono" id="cFecha" style="color:var(--oro)">—</div><div class="l">Día simulado</div></div>
+        <div class="res"><div class="v mono" id="cPrecioDia">—</div><div class="l">Precio BTC del día</div></div>
+        <div class="res"><div class="v mono naranja" id="cBtcAcum" style="color:var(--btc)">—</div><div class="l">BTC acumulado</div></div>
+        <div class="res"><div class="v mono" id="cInvertido">—</div><div class="l">Capital invertido</div></div>
+      </div>
+
+      <canvas id="cicloChart" height="380" aria-label="Trayectoria de precio del ciclo y acumulación de BTC" role="img"></canvas>
+      <div class="leyenda">
+        <span><i style="background:var(--oro)"></i>Precio BTC (escenario de ciclo)</span>
+        <span><i style="background:var(--btc)"></i>BTC acumulado</span>
+        <span><i style="background:#5FD68B"></i>Zona de acumulación máxima (precios de piso)</span>
+      </div>
+
+      <div class="res-fila" style="margin-top:18px">
+        <div class="res"><div class="v naranja" id="cResBtc">—</div><div class="l">BTC total al mes 48</div></div>
+        <div class="res"><div class="v" id="cResPromedio">—</div><div class="l">Precio promedio de compra (vs. techo de <span class="mono" id="cResTechoRef">—</span>)</div></div>
+        <div class="res"><div class="v dorado" id="cResValor">—</div><div class="l">Valor al mes 48 · <span id="cResMultiplo" class="mono"></span> sobre lo invertido</div></div>
+      </div>
+
+      <p style="font-size:.75rem;color:var(--tinta-suave);margin-top:14px">
+        <b style="color:var(--oro)">Escenario de ciclo — hipótesis de trabajo, no pronóstico.</b> Trayectoria modelada
+        sobre la anatomía histórica de los ciclos de Bitcoin: del precio actual al piso hacia octubre 2026 (~12 meses
+        después del techo anterior), recuperación, halving en abril 2028 (línea verde), techo del ciclo hacia finales
+        de 2029 (~18 meses post-halving, como en todos los ciclos anteriores) y corrección parcial al cierre del
+        mandato en 2030. Referencia visual del modelo de bandas y ciclos:
+        <a href="https://www.blockchaincenter.net/es/bitcoin-rainbow-chart/" target="_blank" rel="noopener" style="color:var(--btc);font-weight:600">Bitcoin Rainbow Chart</a>
+        (blockchaincenter.net) — hoy el precio está en la banda inferior, la zona histórica de acumulación.
+        Nadie conoce el futuro del precio; lo que este módulo demuestra es que la estrategia DCA
+        no necesita adivinar: compra la misma cantidad todos los días, acumula más cuando está barato, y el
+        promedio hace el trabajo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARACIÓN ============ -->
+<section id="mundo">
+  <div class="wrap">
+    <div class="eyebrow">05 · La prueba mundial · Colombia frente al mundo</div>
+    <h2>Otros Estados ya están acumulando. La pregunta es cuándo entra Colombia.</h2>
+    <p class="sub">
+      Estados Unidos creó por orden ejecutiva (EO 14178, enero 2025) su Reserva Estratégica de Bitcoin con monedas
+      incautadas — exactamente el modelo que Colombia podría replicar con la SAE. El Salvador compra 1 BTC diario
+      desde 2022 y publica cada movimiento en una billetera verificable.
+    </p>
+
+    <div style="border:1px solid var(--btc);border-radius:12px;background:var(--panel-2);padding:22px 24px;margin-bottom:28px">
+      <div class="eyebrow" style="margin-bottom:10px;color:var(--btc)">La señal más fuerte de la región · Brasil</div>
+      <p style="font-size:.95rem;max-width:75ch">
+        La Cámara de Diputados de Brasil discute el proyecto de ley <b style="color:var(--tinta)">PL 4501/2024
+        (RESBit)</b>, que autorizaría comprar hasta <b style="color:var(--btc)">1.000.000 de bitcoins en cinco
+        años</b> — el 5% de sus reservas internacionales, unos USD 15-18 mil millones. Ya fue aprobado en su
+        primer comité, convirtiendo a Brasil en la primera economía del G20 en tramitar Bitcoin como activo de
+        reserva soberana por vía legislativa. Y un detalle que valida esta propuesta punto por punto: el proyecto
+        brasileño <b style="color:var(--oro)">prohíbe vender los criptoactivos incautados</b> y exige custodia
+        fría, multifirma y divulgación pública del saldo en tiempo real. Si la potencia vecina compra un millón,
+        cada día que Colombia espera, compra más caro.
+      </p>
+    </div>
+
+    <div class="barras" id="barras"></div>
+
+    <div class="cadencia" style="border-color:var(--verde-ok);margin-top:26px">
+      <div class="num" style="color:var(--verde-ok);font-size:1.15rem;line-height:1.35">Esto no es teoría: verifícalo tú mismo, ahora.</div>
+      <p style="font-size:.86rem;color:var(--tinta-suave);margin-top:8px">
+        El Salvador opera su propio explorador de blockchain en un dominio estatal:
+        <a href="https://bitcoin.gob.sv/es/" target="_blank" rel="noopener" style="color:var(--btc);font-weight:600">bitcoin.gob.sv</a>
+        — la Oficina Nacional del Bitcoin publica ahí su reserva, transacción por transacción, sobre nodos
+        del propio Estado. Y las tenencias del Gobierno de Estados Unidos se auditan en tiempo real en
+        <a href="https://arkm.com/explorer/entity/usg" target="_blank" rel="noopener" style="color:var(--btc);font-weight:600">arkm.com/explorer/entity/usg</a>
+        — billetera por billetera, entrada por salida. Esa es la diferencia de fondo: en blockchain la
+        transparencia no es una promesa del gobierno de turno, es una propiedad del activo. Ese es el estándar
+        que proponemos para Colombia: no informes anuales — verificación en tiempo real, bloque a bloque.
+      </p>
+    </div>
+    <p class="nota-fuentes" style="margin-top:18px">
+      Tenencias aproximadas a mediados de 2026: EE. UU. ~200.000–330.000 BTC según la fuente (Arkham / BitcoinTreasuries);
+      El Salvador ~7.650–7.700 BTC (Oficina Nacional del Bitcoin). Brasil aparece con la meta de su proyecto de ley,
+      aún en trámite. "Colombia (simulada)" corresponde al horizonte que configures arriba.
+    </p>
+  </div>
+</section>
+
+<!-- ============ POR QUÉ BITCOIN ============ -->
+<section id="porque">
+  <div class="wrap">
+    <div class="eyebrow">06 · El núcleo · ¿Por qué Bitcoin es el núcleo de la reserva?</div>
+    <h2>Oro digital. 21 millones. Nada más.</h2>
+    <div class="pilares" style="margin-top:26px">
+      <div class="pilar"><span class="tag">Oro digital</span><h3>Todo lo que hace el oro, pero mejor</h3><p>Imposible de falsificar. 100% auditable. Viaja a cualquier lugar del planeta en segundos y sin intermediarios.</p></div>
+      <div class="pilar"><span class="tag">Límite absoluto</span><h3>Solo existirán 21 millones</h3><p>Bitcoin no es escaso: es limitado — y eso es muy distinto. El límite está escrito en código, verificado cada 10 minutos desde 2009. Nadie puede emitir uno más.</p></div>
+      <div class="pilar"><span class="tag">Validado por la banca mundial</span><h3>La discusión de "si" ya se acabó</h3><p>BlackRock, Fidelity y JPMorgan ya están adentro. El ETF de Bitcoin es el lanzamiento más exitoso en la historia de los mercados.</p></div>
+      <div class="pilar"><span class="tag">Proyección 2035</span><h3>USD 1 millón por bitcoin</h3><p>Modelos matemáticos y estadísticos basados en emisión limitada y adopción proyectan un precio de USD 1 millón hacia 2035.</p></div>
+      <div class="pilar" style="grid-column:1/-1"><span class="tag">Soberanía absoluta</span><h3>Inembargable. Sin banco central. Sin gobierno.</h3><p>Ningún poder extranjero puede confiscarlo, congelarlo ni devaluarlo. Es el activo global por excelencia.</p></div>
+    </div>
+    <div class="cadencia" style="border-color:var(--btc);margin-top:16px">
+      <div class="num" style="color:var(--btc)">Cada era tuvo su activo de poder: la tierra, el oro, el petróleo. Vivimos en la era digital — y Bitcoin es y será su principal activo.</div>
+      <p style="font-size:.84rem;color:var(--tinta-suave);margin-top:6px">Los países que llegaron primero al petróleo escribieron el siglo XX. Los que lleguen primero a Bitcoin escribirán el XXI. Colombia todavía puede estar entre ellos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPOSICIÓN ============ -->
+<section id="composicion">
+  <div class="wrap">
+    <div class="eyebrow">07 · La composición de la reserva</div>
+    <h2>80% Bitcoin. 20% en los proyectos líderes del ecosistema.</h2>
+    <p class="sub">
+      El núcleo de la reserva es Bitcoin: el único activo digital con quince años de historia probada como
+      reserva de valor. Pero la economía blockchain es más que una moneda — es una industria completa de
+      infraestructura financiera. Una capa del 20% en los proyectos top del ecosistema le da a Colombia
+      participación en esa industria, como quien compró acciones de internet en los años noventa.
+    </p>
+    <div style="border:1px solid var(--linea);border-radius:12px;background:var(--panel-2);padding:24px">
+      <div style="display:flex;height:44px;border-radius:8px;overflow:hidden;margin-bottom:16px">
+        <div style="width:80%;background:var(--btc);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.8rem;font-weight:600;color:#1a1108">BTC · 80%</div>
+        <div style="width:8%;background:#8A92B2;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:#12131a">ETH</div>
+        <div style="width:5%;background:#B08AE0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#160f1d">SOL</div>
+        <div style="width:4%;background:#5FD6C4;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:#0a1f1b">HYPE</div>
+        <div style="width:3%;background:var(--oro);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.56rem;color:#221a0c">+</div>
+      </div>
+      <div class="leyenda" style="margin-top:0">
+        <span><i style="background:var(--btc)"></i>Bitcoin 80% — reserva de valor, núcleo intocable</span>
+        <span><i style="background:#8A92B2"></i>Ethereum 8% — la capa de contratos inteligentes</span>
+        <span><i style="background:#B08AE0"></i>Solana 5% — pagos y consumo de alta velocidad</span>
+        <span><i style="background:#5FD6C4"></i>Hyperliquid 4% — infraestructura financiera on-chain</span>
+        <span><i style="background:var(--oro)"></i>Otros líderes 3% — canasta revisada anualmente por comité técnico</span>
+      </div>
+      <p style="font-size:.78rem;color:var(--tinta-suave);margin-top:16px">
+        Regla simple: de cada compra diaria, 80 centavos de cada peso van a Bitcoin y 20 a la canasta de
+        innovación. La canasta se rebalancea con criterios públicos (capitalización, años de operación, seguridad
+        auditada) — nunca a dedo. Nota honesta: todo lo que no es Bitcoin tiene más riesgo y menos historia;
+        por eso es la capa menor, no el núcleo. El simulador de arriba modela el total como si fuera 100% BTC
+        para mantener las cuentas simples y defendibles.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RENDIMIENTOS SIN IMPUESTOS ============ -->
+<section id="rendimientos">
+  <div class="wrap">
+    <div class="eyebrow">08 · Ingresos sin cobrar impuestos</div>
+    <h2>El Estado siempre recauda cobrando. Aquí recauda haciendo trabajar su propia reserva.</h2>
+    <p class="sub">
+      La idea, en una frase: <b style="color:var(--tinta)">la reserva es como una finca productiva del Estado</b>.
+      El 70% o más se guarda bajo llave (custodia fría, nadie la toca). Hasta un 30% se "pone en arriendo" en
+      los mercados de finanzas descentralizadas — prestando liquidez que los mercados pagan por usar, igual que
+      hacen los fondos de inversión más grandes del mundo con su tesorería. Ese arriendo llega todos los meses,
+      queda registrado en público, y se gira automáticamente a planes sociales. La diferencia con todo lo que
+      existe: el Estado hoy solo sabe recaudar cobrándole impuestos a la gente; aquí recauda porque su propio
+      patrimonio trabaja.
+    </p>
+
+    <div class="sim">
+      <div class="controles">
+        <div class="control">
+          <label for="rDespliegue">Fracción desplegada en rendimiento <output id="oDespliegue">10%</output></label>
+          <input type="range" id="rDespliegue" min="0" max="30" step="1" value="10" aria-label="Porcentaje de la reserva desplegado en estrategias de rendimiento">
+          <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--tinta-suave);margin-top:4px" class="mono"><span>0% (todo en frío)</span><span>máx. 30%</span></div>
+        </div>
+        <div class="control">
+          <label for="rApy">Rendimiento anual neto (APY) <output id="oApy">6%</output></label>
+          <input type="range" id="rApy" min="1" max="15" step="0.5" value="6" aria-label="Rendimiento anual estimado">
+          <div style="display:flex;justify-content:space-between;font-size:.65rem;color:var(--tinta-suave);margin-top:4px" class="mono"><span>1% conservador</span><span>15% agresivo</span></div>
+        </div>
+        <p style="font-size:.74rem;color:var(--tinta-suave)">
+          Se calcula sobre el valor de la reserva al final del horizonte que configuraste arriba.
+          Referencias: estrategias de liquidez concentrada, mercados de préstamo sobrecolateralizados
+          y tesorerías institucionales suelen operar en rangos de un dígito; todo APY superior implica
+          más riesgo de contrato, de mercado y de contraparte.
+        </p>
+      </div>
+      <div class="resultados">
+        <div class="res-fila">
+          <div class="res"><div class="v" id="yBase">—</div><div class="l">Base del cálculo: valor de la reserva al final del horizonte configurado arriba</div></div>
+          <div class="res"><div class="v dorado" id="yCapital">—</div><div class="l">Capital desplegado en estrategias (USD) = base × fracción</div></div>
+          <div class="res"><div class="v naranja" id="yAnualUsd">—</div><div class="l">Rendimiento anual estimado (USD) = capital × APY, interés simple</div></div>
+        </div>
+        <div class="res-fila">
+          <div class="res" style="grid-column:1/2"><div class="v" id="yAnualCop">—</div><div class="l">Rendimiento anual estimado (COP) → planes sociales</div></div>
+          <div class="res" style="grid-column:2/-1">
+            <div class="v" id="yEquivalencia" style="font-size:1.05rem;line-height:1.5;color:var(--tinta)">—</div>
+            <div class="l">Lo que significa en plata de la gente: ingresos recurrentes generados por la participación de la reserva en los mercados, no por el bolsillo del contribuyente. Dividendos mensuales para programas sociales de todos los colombianos — no del político de turno.</div>
+          </div>
+        </div>
+        <div class="pilares" style="margin-top:2px">
+          <div class="pilar"><span class="tag">Regla 1 · Núcleo intocable</span><h3>Mínimo 70% siempre en frío</h3><p>La fracción desplegada nunca supera el 30% y solo opera en protocolos auditados, con límites por protocolo y por estrategia definidos por ley, no por funcionarios.</p></div>
+          <div class="pilar"><span class="tag">Regla 2 · Todo on-chain</span><h3>Rendimiento verificable, retiro programado</h3><p>Cada posición, cada comisión ganada y cada retiro queda en el libro público. Los rendimientos realizados se giran por fórmula automática a los programas sociales definidos por el Congreso.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EL MENSAJE ============ -->
+<section id="mensaje">
+  <div class="wrap">
+    <div class="eyebrow">09 · El mensaje político</div>
+    <h2>Una oportunidad para que la Presidencia le hable claro a la clase política.</h2>
+    <p class="sub" style="max-width:70ch">
+      Adoptar esta política sería un mensaje sin ambigüedad desde la Casa de Nariño: el interés general de los
+      colombianos — y de las próximas generaciones — está por encima de los políticos de turno. Quien la firme
+      renuncia voluntariamente a la caja menor histórica del clientelismo: los bienes dejan de ser botín
+      repartible y se convierten en un patrimonio que ningún gobierno futuro, de ningún color, puede tocar ni
+      esconder. Beneficia por igual a quien votó por este gobierno y a quien no. Y le quita al Estado un dolor
+      de cabeza de dos décadas: en vez de administrar mal miles de bienes físicos, custodia bien un solo activo
+      digital, contable al satoshi.
+    </p>
+  </div>
+</section>
+
+<!-- ============ PILARES ============ -->
+<section id="pilares">
+  <div class="wrap">
+    <div class="eyebrow">10 · Las reglas del juego</div>
+    <h2>Diseño institucional: que ningún gobierno de turno pueda meterle la mano.</h2>
+    <p class="sub">Beneficia a todos los colombianos — a los que votaron por el gobierno y a los que no. Ese es el punto.</p>
+    <div class="pilares">
+      <div class="pilar"><span class="tag">Transparencia radical</span><h3>Billetera pública del Estado</h3><p>Direcciones publicadas por ley. Cada compra diaria queda registrada on-chain: cualquier ciudadano, periodista o contralor la audita desde su celular, sin pedir permiso. Custodia en frío multifirma con llaves distribuidas entre entidades independientes (Banco de la República, Contraloría, Procuraduría).</p></div>
+      <div class="pilar"><span class="tag">Remates ágiles y abiertos</span><h3>Valoración rigurosa + incentivo al comprador</h3><p>Los bienes incautados se valoran con metodología pública y se rematan en tiempo récord con un margen de descuento (la SAE ya opera con 15–40%). El comprador gana; el Estado convierte activos deteriorables en el activo más duro de la historia.</p></div>
+      <div class="pilar"><span class="tag">Disciplina DCA</span><h3>365 compras al año, sin discrecionalidad</h3><p>Nadie decide "cuándo comprar". El promedio de costo elimina el timing político y la tentación de especular. Es la misma estrategia que El Salvador ejecuta a diario y que cualquier auditor puede verificar contra el calendario.</p></div>
+      <div class="pilar"><span class="tag">Candado de 10 años</span><h3>Custodia mínima de una década</h3><p>Prohibición legal de vender durante 10 años. Pasado ese periodo, los rendimientos realizados se destinan por fórmula a planes sociales — no al gobierno de turno. Un PIB en bitcoin por colombiano, medible año a año en sats.</p></div>
+    </div>
+    <div class="aviso">
+      <b>Nota honesta:</b> Bitcoin es volátil y una reserva soberana implica riesgos cambiarios, de custodia y regulatorios
+      (El Salvador, por ejemplo, negocia hoy tensiones con el FMI por su programa de compras). Las estrategias DeFi añaden
+      riesgos propios — fallas de contratos inteligentes, pérdida impermanente en pools de liquidez, contrapartes — y por eso
+      esta propuesta las limita a una fracción minoritaria, en protocolos auditados y con reglas fijadas por ley. Esta página
+      es un ejercicio ciudadano de conciencia y simulación — no asesoría financiera ni posición oficial de ninguna entidad.
+    </div>
+  </div>
+</section>
+
+<!-- ============ LA RUTA ============ -->
+<section id="ruta">
+  <div class="wrap">
+    <div class="eyebrow">11 · La ruta · De página web a política de Estado</div>
+    <h2>Cuatro pasos realistas, del más fácil al más ambicioso.</h2>
+    <p class="sub">Esta propuesta no exige empezar por el Congreso. Puede nacer mañana con una decisión administrativa y crecer por etapas — cada paso genera evidencia para el siguiente.</p>
+    <div class="pilares">
+      <div class="pilar"><span class="tag">Paso 1 · Decisión administrativa (0 pesos, 0 leyes)</span><h3>Dejar de subastar la cripto ya incautada</h3><p>La SAE ya recibe criptoactivos incautados. Una directiva interna — espejo de la orden ejecutiva de EE. UU. y del proyecto brasileño — ordena custodiarlos en billetera fría multifirma pública en vez de rematarlos. La reserva nace sin costo fiscal ni trámite legislativo, y el país gana su primer saldo verificable on-chain.</p></div>
+      <div class="pilar"><span class="tag">Paso 2 · Piloto con techo definido</span><h3>Un programa de compra pequeño y auditable</h3><p>Un piloto de 12 meses con un monto acotado del recaudo de remates, publicado a diario. El objetivo no es el tamaño: es demostrar el mecanismo — remate ágil → compra DCA → billetera pública → informe ciudadano. La evidencia del piloto es el mejor argumento ante el Congreso.</p></div>
+      <div class="pilar"><span class="tag">Paso 3 · Reforma legal</span><h3>Modificar la destinación del FRISCO (Ley 1708 de 2014)</h3><p>Los recursos de los bienes con extinción de dominio tienen destinación fijada por ley. Redirigir un porcentaje a la reserva exige un proyecto de ley que reforme el Código de Extinción de Dominio — o un artículo en el Plan Nacional de Desarrollo del gobierno entrante, la ley ómnibus que se tramita en los primeros meses de cada cuatrienio y que es la ventana legislativa ideal.</p></div>
+      <div class="pilar"><span class="tag">Paso 4 · Blindaje institucional</span><h3>Fondo soberano, no reserva internacional</h3><p>Las reservas internacionales las administra el Banco de la República con criterios constitucionales de seguridad y liquidez — pelear esa batalla es innecesario. La vía inteligente: un fondo soberano independiente (como los que ya existen para regalías y pensiones territoriales), con las llaves multifirma repartidas entre entidades de control, el candado de 10 años y la fórmula de dividendos sociales escritos en su ley de creación.</p></div>
+    </div>
+    <div class="aviso" style="border-left-color:var(--oro)">
+      <b>Cómo empuja el ciudadano:</b> esta página es la herramienta — compártela con congresistas, periodistas y
+      líderes de opinión. El camino probado de las iniciativas ciudadanas: documento técnico de política pública +
+      audiencia pública en el Congreso (como logró Brasil) + presión mediática con datos verificables. El pitch de
+      una frase: <b style="color:var(--tinta)">"No pedimos un peso nuevo del presupuesto — pedimos que lo que ya se
+      remata deje de perderse en el desorden."</b>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EL PEDIDO ============ -->
+<section id="pedido">
+  <div class="wrap">
+    <div class="eyebrow">12 · El pedido · Lo único que esta propuesta solicita hoy</div>
+    <h2>No pedimos aprobar nada. Pedimos explorar.</h2>
+    <p class="sub">
+      Dos decisiones pequeñas, de costo cero, que ponen a Colombia en la conversación mundial
+      sin comprometer un solo peso.
+    </p>
+    <div class="pilares">
+      <div class="pilar"><span class="tag">Pedido 1 · Costo: cero</span><h3>Una mesa técnica de exploración</h3><p>Un equipo del Gobierno evalúa esta propuesta con la iniciativa ciudadana: cifras de la SAE, arquitectura de custodia, experiencia internacional y ruta jurídica. Sin compromiso de adopción — solo el rigor de estudiarla. La Fase 1 (custodiar la cripto ya incautada en vez de subastarla) puede ejecutarse con una directiva administrativa.</p></div>
+      <div class="pilar"><span class="tag">Pedido 2 · El desafío científico</span><h3>Que Colombia le audite el algoritmo a Bitcoin</h3><p>Invitemos a la comunidad matemática, científica y algorítmica del país a dos retos públicos: encontrarle la falla lógica al protocolo de Bitcoin, y validar con datos y modelos si la proyección de USD 1 millón es alcanzable. Si encuentran la falla, Colombia se ahorra el error y es noticia mundial. Si no la encuentran, el Estado obtiene gratis la validación científica de su reserva. No hay escenario donde el país pierda.</p></div>
+    </div>
+    <div class="cadencia" style="border-color:var(--btc);margin-top:24px">
+      <div class="num" style="color:var(--btc);font-size:1.2rem;line-height:1.4">Las decisiones estratégicas sobre patrimonio público requieren estudio oportuno. Mientras más tarde empiece esa evaluación, menor será la capacidad del país para aprovechar las oportunidades que hoy exploran otras naciones.</div>
+      <div class="hero-ctas" style="margin-top:20px">
+        <a href="mailto:andrescrypto.eth@gmail.com?subject=Mesa%20t%C3%A9cnica%20%C2%B7%20Reserva%20Bitcoin%20Colombia" class="btn-cta">Agendar la mesa técnica →</a>
+        <a href="#simulador" class="btn-ghost">Volver a los números</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <b>Reserva Estratégica de Activos Digitales para Colombia</b> · Iniciativa ciudadana de política pública:
+    transformar patrimonio de extinción de dominio en una reserva soberana — Bitcoin como núcleo, con una capa
+    limitada de innovación — transparente y verificable mediante blockchain. Cifras de referencia: SAE (rendición
+    de cuentas 2025), Contraloría y Procuraduría, Oficina Nacional del Bitcoin de El Salvador, Arkham Intelligence,
+    TRM Banco de la República. Los cálculos son simulaciones y pueden editarse en el código abierto de esta página.
+  </div>
+</footer>
+
+<script>
+// ================== ESTADO ==================
+const POBLACION = 52700000;           // población de Colombia aprox.
+const EL_SALVADOR_BTC = 7653;
+const USA_BTC = 328000;
+let precioBTC = 60000;                 // USD — valor por defecto, editable / se intenta actualizar en vivo
+let trm = 3441;                        // COP por USD
+let cagr = 0.21;
+
+const $ = id => document.getElementById(id);
+const fmtCOP = n => 'COP ' + Math.round(n).toLocaleString('es-CO');
+const fmtUSD = n => 'USD ' + Math.round(n).toLocaleString('es-CO');
+const fmtUSDc = n => n >= 1e9 ? 'USD ' + (n/1e9).toLocaleString('es-CO',{maximumFractionDigits:2}) + ' mil M' :
+                     n >= 1e6 ? 'USD ' + (n/1e6).toLocaleString('es-CO',{maximumFractionDigits:1}) + ' M' : fmtUSD(n);
+const fmtBTC = (n,d=2) => n.toLocaleString('es-CO',{minimumFractionDigits:d,maximumFractionDigits:d}) + ' BTC';
+
+// ================== MOTOR DE SIMULACIÓN ==================
+// DCA continuo: cada año se invierte el recaudo (COP) dividido en 365 compras.
+// El precio de BTC crece al CAGR del escenario, aplicado día a día.
+function simular(recaudoBillones, anios){
+  const copAnual = recaudoBillones * 1e12;
+  const copDia = copAnual / 365;
+  const usdDia = copDia / trm;
+  const gDia = Math.pow(1 + cagr, 1/365);
+  let precio = precioBTC, btc = 0, invertido = 0;
+  const serie = [{t:0, valor:0, inv:0}];
+  const btcPorAno = [];
+  let btcAnoActual = 0;
+  const totalDias = anios * 365;
+  for(let d = 1; d <= totalDias; d++){
+    const compra = usdDia / precio;
+    btc += compra; btcAnoActual += compra;
+    invertido += usdDia;
+    precio *= gDia;
+    if(d % 365 === 0){ btcPorAno.push(btcAnoActual); btcAnoActual = 0; }
+    if(d % 73 === 0 || d === totalDias){
+      serie.push({t:d/365, valor:btc*precio, inv:invertido});
+    }
+  }
+  return {copDia, usdDia, btcDia: usdDia/precioBTC, btcAno1: btcPorAno[0]||btc, btc, valorFinal: btc*precio, invertido, serie, btcPorAno};
+}
+
+// ================== RENDER ==================
+function leerControles(){
+  return {
+    recaudo: parseFloat($('rRecaudo').value),
+    anios: parseInt($('rAnios').value)
+  };
+}
+function actualizar(){
+  precioBTC = Math.max(1000, parseFloat($('nPrecio').value) || 60000);
+  trm = Math.max(1000, parseFloat($('nTrm').value) || 3441);
+  const {recaudo, anios} = leerControles();
+  $('oRecaudo').textContent = 'COP ' + recaudo.toLocaleString('es-CO',{maximumFractionDigits:2}) + ' B';
+  $('oAnios').textContent = anios + (anios===1?' año':' años');
+  $('hPrecio').textContent = '$' + precioBTC.toLocaleString('es-CO');
+  $('hTrm').textContent = '$' + trm.toLocaleString('es-CO');
+
+  const s = simular(recaudo, anios);
+
+  // contador héroe (año 1)
+  animarNumero($('cBtcAno'), s.btcAno1, v => v.toLocaleString('es-CO',{maximumFractionDigits:0}) + ' <small>BTC</small>');
+  $('cBtcDia').textContent = s.btcDia.toLocaleString('es-CO',{maximumFractionDigits:2}) + ' BTC/día';
+  const satsAno1 = s.btcAno1 * 1e8 / POBLACION;
+  $('cSats').textContent = Math.round(satsAno1).toLocaleString('es-CO') + ' sats';
+
+  // resultados
+  $('rDiaCop').textContent = fmtCOP(s.copDia);
+  $('rDiaUsd').textContent = fmtUSD(s.usdDia);
+  $('rDiaBtc').textContent = fmtBTC(s.btcDia);
+  $('rBtcAno1').textContent = fmtBTC(s.btcAno1, 0);
+  $('rCuenta').textContent = s.btcDia.toLocaleString('es-CO',{maximumFractionDigits:2}) + ' × 365 ≈ ' + Math.round(s.btcDia*365).toLocaleString('es-CO');
+  $('rBtcTotal').textContent = fmtBTC(s.btc, 0);
+  $('rValorFinal').textContent = fmtUSDc(s.valorFinal);
+  $('rMultiplo').textContent = '×' + (s.valorFinal/s.invertido).toLocaleString('es-CO',{maximumFractionDigits:1});
+
+  dibujarChart(s.serie, anios);
+  dibujarBtcBars(s.btcPorAno);
+  dibujarBarras(s.btc);
+  generarTira(s.btcDia, s.copDia);
+  actualizarRendimientos(s.valorFinal);
+  actualizarCuentaFinal();
+}
+
+// ================== CUENTA FINAL (sección 01, dinámica) ==================
+function actualizarCuentaFinal(){
+  const aBtc = cop => cop / trm / precioBTC;
+  const f = n => '≈ ' + Math.round(n).toLocaleString('es-CO') + ' BTC';
+  const funcionamiento = 50e9, cuentas = 58e9, hallazgos = 8.839e9, recaudo = 1.14e12;
+  const perdidos = aBtc(funcionamiento + cuentas + hallazgos);
+  const comprables = aBtc(recaudo);
+  $('cf1').textContent = f(aBtc(funcionamiento)) + ' que no se compran';
+  $('cf2').textContent = f(aBtc(cuentas)) + ' que no se compran';
+  $('cf3').textContent = f(aBtc(hallazgos)) + ' que no se compran';
+  $('cfTotal').textContent = f(perdidos) + ' perdidos cada año';
+  $('cfRecaudo').textContent = f(comprables) + ' por año';
+  $('cfResumen').innerHTML =
+    '<b style="color:var(--tinta)">El resumen en una frase:</b> el desorden de la SAE le cuesta a Colombia el equivalente a ' +
+    '<b style="color:var(--rojo)">' + Math.round(perdidos).toLocaleString('es-CO') + ' BTC cada año</b> — y el recaudo que ya ' +
+    'genera compraría <b style="color:var(--btc)">' + Math.round(comprables).toLocaleString('es-CO') + ' más</b>. ' +
+    '<b style="color:var(--oro)">Cada peso que hoy carga el problema, mañana compra el activo.</b> ' +
+    '<span style="font-size:.75rem;color:var(--tinta-suave)">(Calculado en vivo con el precio BTC y la TRM del encabezado — verifícalo con calculadora.)</span>';
+}
+
+// ================== RENDIMIENTOS DEFI ==================
+function actualizarRendimientos(valorReservaUsd){
+  const pct = parseFloat($('rDespliegue').value)/100;
+  const apy = parseFloat($('rApy').value)/100;
+  $('oDespliegue').textContent = Math.round(pct*100)+'%';
+  $('oApy').textContent = (apy*100).toLocaleString('es-CO',{maximumFractionDigits:1})+'%';
+  const capital = valorReservaUsd * pct;
+  const anualUsd = capital * apy;
+  const anualCop = anualUsd * trm;
+  const mensualCop = anualCop/12;
+  $('yBase').textContent = fmtUSDc(valorReservaUsd);
+  $('yCapital').textContent = fmtUSDc(capital);
+  $('yAnualUsd').textContent = fmtUSDc(anualUsd);
+  $('yAnualCop').textContent = anualCop >= 1e12
+    ? 'COP ' + (anualCop/1e12).toLocaleString('es-CO',{maximumFractionDigits:2}) + ' billones'
+    : 'COP ' + (anualCop/1e9).toLocaleString('es-CO',{maximumFractionDigits:1}) + ' mil M';
+  const porColombiano = anualCop / POBLACION;
+  $('yEquivalencia').innerHTML =
+    '≈ <b style="color:var(--oro)">COP ' + Math.round(mensualCop/1e9).toLocaleString('es-CO') +
+    ' mil millones mensuales</b> para inversión social — equivalente a <b style="color:var(--btc)">COP ' +
+    Math.round(porColombiano).toLocaleString('es-CO') + ' por colombiano al año</b>, recaudados sin subir un solo impuesto.';
+}
+
+// animación simple de conteo
+let animRAF;
+function animarNumero(el, destino, fmt){
+  cancelAnimationFrame(animRAF);
+  const inicio = performance.now(), desde = 0, dur = 900;
+  const paso = t => {
+    const p = Math.min(1,(t-inicio)/dur), e = 1-Math.pow(1-p,3);
+    el.innerHTML = fmt(desde + (destino-desde)*e);
+    if(p<1) animRAF = requestAnimationFrame(paso);
+  };
+  animRAF = requestAnimationFrame(paso);
+}
+
+// tira de compras diarias simuladas
+function generarTira(btcDia, copDia){
+  const hoy = new Date();
+  let html = '';
+  for(let i=0;i<14;i++){
+    const f = new Date(hoy); f.setDate(f.getDate()-i);
+    const fecha = f.toLocaleDateString('es-CO',{day:'2-digit',month:'short'});
+    const varr = (Math.sin(i*2.7)*0.04);
+    const b = (btcDia*(1+varr)).toLocaleString('es-CO',{maximumFractionDigits:3});
+    html += `<span class="compra">${fecha} · compra ejecutada <b>+${b} BTC</b> · ${fmtCOP(copDia)}</span>`;
+  }
+  $('tira').innerHTML = html + html; // duplicado para bucle continuo
+}
+
+// ================== GRÁFICO PRINCIPAL: VALOR VS INVERTIDO (un solo eje, USD) ==================
+function dibujarChart(serie, anios){
+  const c = $('chart'), dpr = window.devicePixelRatio||1;
+  const W = c.clientWidth, H = 300;
+  c.width = W*dpr; c.height = H*dpr;
+  const ctx = c.getContext('2d'); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  const padL=76, padR=20, padT=16, padB=32;
+  const maxV = Math.max(...serie.map(p=>p.valor))*1.08 || 1;
+  const x = t => padL + (t/anios)*(W-padL-padR);
+  const y = v => H-padB - (v/maxV)*(H-padT-padB);
+
+  // rejilla
+  ctx.strokeStyle='#22453D'; ctx.lineWidth=1; ctx.font='11px IBM Plex Mono'; ctx.fillStyle='#9DBBB0';
+  for(let i=0;i<=4;i++){
+    const gy = padT + i*(H-padT-padB)/4;
+    ctx.beginPath(); ctx.moveTo(padL,gy); ctx.lineTo(W-padR,gy); ctx.stroke();
+    ctx.textAlign='right'; ctx.fillText('$'+compact(maxV*(1-i/4)), padL-8, gy+4);
+  }
+  ctx.textAlign='center';
+  for(let a=0;a<=anios;a+=Math.ceil(anios/6)){ ctx.fillText('año '+a, x(a), H-10); }
+
+  // área bajo el valor de la reserva
+  ctx.beginPath();
+  serie.forEach((p,i)=>{const px=x(p.t),py=y(p.valor); i?ctx.lineTo(px,py):ctx.moveTo(px,py);});
+  ctx.lineTo(x(serie.at(-1).t),H-padB); ctx.lineTo(x(0),H-padB); ctx.closePath();
+  const gr = ctx.createLinearGradient(0,padT,0,H-padB);
+  gr.addColorStop(0,'rgba(216,179,106,.25)'); gr.addColorStop(1,'rgba(216,179,106,0)');
+  ctx.fillStyle=gr; ctx.fill();
+
+  // línea invertido (punteada)
+  ctx.beginPath(); ctx.strokeStyle='#9DBBB0'; ctx.lineWidth=1.6; ctx.setLineDash([6,5]);
+  serie.forEach((p,i)=>{const px=x(p.t),py=y(p.inv); i?ctx.lineTo(px,py):ctx.moveTo(px,py);});
+  ctx.stroke(); ctx.setLineDash([]);
+  // línea valor
+  ctx.beginPath(); ctx.strokeStyle='#D8B36A'; ctx.lineWidth=2.6;
+  serie.forEach((p,i)=>{const px=x(p.t),py=y(p.valor); i?ctx.lineTo(px,py):ctx.moveTo(px,py);});
+  ctx.stroke();
+  // etiqueta de brecha al final
+  const ult = serie.at(-1);
+  ctx.fillStyle='#D8B36A'; ctx.textAlign='right'; ctx.font='600 12px IBM Plex Mono';
+  ctx.fillText('la ganancia del DCA', W-padR-4, y((ult.valor+ult.inv)/2));
+}
+
+// ================== BARRAS: BTC COMPRADO POR AÑO ==================
+function dibujarBtcBars(btcPorAno){
+  const c = $('chartBtc'), dpr = window.devicePixelRatio||1;
+  const W = c.clientWidth, H = 170;
+  c.width = W*dpr; c.height = H*dpr;
+  const ctx = c.getContext('2d'); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  const padL=16, padR=16, padT=14, padB=26;
+  const n = btcPorAno.length || 1;
+  const maxB = Math.max(...btcPorAno, 1);
+  const ancho = (W-padL-padR)/n;
+  ctx.font='11px IBM Plex Mono'; ctx.textAlign='center';
+  btcPorAno.forEach((b,i)=>{
+    const h = (b/maxB)*(H-padT-padB);
+    const bx = padL + i*ancho + ancho*0.12, bw = ancho*0.76;
+    ctx.fillStyle = i===0 ? '#F7931A' : 'rgba(247,147,26,'+(0.85 - 0.6*(i/(n-1||1)))+')';
+    ctx.fillRect(bx, H-padB-h, bw, h);
+    ctx.fillStyle='#9DBBB0';
+    if(n<=12 || i%2===0) ctx.fillText('año '+(i+1), bx+bw/2, H-8);
+    ctx.fillStyle='#EAF3EE';
+    if(h>26) ctx.fillText(Math.round(b).toLocaleString('es-CO'), bx+bw/2, H-padB-h+16);
+  });
+}
+function compact(n){
+  if(n>=1e9) return (n/1e9).toFixed(1)+'MM';
+  if(n>=1e6) return (n/1e6).toFixed(1)+'M';
+  if(n>=1e3) return (n/1e3).toFixed(0)+'k';
+  return Math.round(n).toString();
+}
+
+// ================== BARRAS PAÍSES ==================
+function dibujarBarras(btcColombia){
+  const datos = [
+    {n:'Brasil (proyecto)', v:1000000, c:'#5FD68B', d:'meta PL 4501: 1 M BTC en 5 años'},
+    {n:'EE. UU.', v:USA_BTC, c:'#9DBBB0', d:'incautaciones (EO 14178)'},
+    {n:'El Salvador', v:EL_SALVADOR_BTC, c:'#D8B36A', d:'compra diaria desde 2022'},
+    {n:'Colombia (simulada)', v:btcColombia, c:'#F7931A', d:'remates SAE → DCA'}
+  ];
+  const max = Math.max(...datos.map(d=>d.v));
+  $('barras').innerHTML = datos.map(d=>`
+    <div class="barra-fila">
+      <div>${d.n}<br><span style="font-size:.68rem;color:var(--tinta-suave)">${d.d}</span></div>
+      <div class="barra-pista"><div class="barra-relleno" style="width:${Math.max(1.2,d.v/max*100)}%;background:${d.c}"></div></div>
+      <div class="barra-num">${Math.round(d.v).toLocaleString('es-CO')} BTC</div>
+    </div>`).join('');
+}
+
+// ================== PRECIO EN VIVO (con respaldo) ==================
+async function intentarPrecioVivo(){
+  try{
+    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd',{signal:AbortSignal.timeout(4000)});
+    const j = await r.json();
+    if(j?.bitcoin?.usd){
+      $('nPrecio').value = Math.round(j.bitcoin.usd);
+      $('hFuentePrecio').textContent = '· en vivo';
+      actualizar();
+    }
+  }catch(e){
+    $('hFuentePrecio').textContent = '· referencia editable';
+  }
+}
+
+// ================== CICLO 48 MESES ==================
+const DIAS_CICLO = 1461; // 48 meses
+let cicloDatos = null, cicloAnim = null, cicloDia = 0;
+
+function construirTrayectoria(){
+  const piso = Math.max(1000, parseFloat($('cPiso').value)||42000);
+  const techo = Math.max(piso*1.5, parseFloat($('cTecho').value)||240000);
+  // Anatomía del ciclo con halving abr-2028 (mes 21):
+  // hoy → piso oct-2026 (m3) → recuperación → halving (m21) → techo fin-2029 (m40) → corrección hacia ago-2030 (m48)
+  const anclas = [
+    {m:0,  p:precioBTC},
+    {m:3,  p:piso},
+    {m:21, p:piso*1.9},
+    {m:40, p:techo},
+    {m:48, p:techo*0.60}
+  ];
+  const precios = new Array(DIAS_CICLO);
+  for(let d=0; d<DIAS_CICLO; d++){
+    const m = d/30.44;
+    let a=anclas[0], b=anclas[anclas.length-1];
+    for(let i=0;i<anclas.length-1;i++){
+      if(m>=anclas[i].m && m<=anclas[i+1].m){ a=anclas[i]; b=anclas[i+1]; break; }
+    }
+    const t = b.m===a.m ? 0 : (m-a.m)/(b.m-a.m);
+    const suave = t*t*(3-2*t); // easing para curvas de mercado
+    let p = Math.exp(Math.log(a.p) + (Math.log(b.p)-Math.log(a.p))*suave);
+    // ondulación determinista: la volatilidad del día a día
+    p *= 1 + 0.045*Math.sin(d/23) + 0.028*Math.sin(d/7.3+2) + 0.015*Math.sin(d/3.1+5);
+    precios[d] = p;
+  }
+  return {precios, piso, techo};
+}
+
+function simularCiclo(){
+  const compraDia = Math.max(100, parseFloat($('cCompra').value)||800000);
+  const {precios, piso, techo} = construirTrayectoria();
+  let btc=0, inv=0;
+  const serieBtc = new Array(DIAS_CICLO);
+  for(let d=0; d<DIAS_CICLO; d++){
+    btc += compraDia/precios[d];
+    inv += compraDia;
+    serieBtc[d] = btc;
+  }
+  const valorFinal = btc*precios[DIAS_CICLO-1];
+  cicloDatos = {precios, serieBtc, compraDia, inv, btc, valorFinal, piso, techo};
+  // resultados finales
+  $('cResBtc').textContent = fmtBTC(btc,0);
+  $('cResPromedio').textContent = 'USD ' + Math.round(inv/btc).toLocaleString('es-CO');
+  $('cResTechoRef').textContent = 'USD ' + Math.round(techo).toLocaleString('es-CO');
+  $('cResValor').textContent = fmtUSDc(valorFinal);
+  $('cResMultiplo').textContent = '×' + (valorFinal/inv).toLocaleString('es-CO',{maximumFractionDigits:2});
+  cicloDia = DIAS_CICLO-1;
+  pintarLector(cicloDia);
+  dibujarCiclo(cicloDia);
+}
+
+function pintarLector(d){
+  const inicio = new Date(2026,6,1);
+  const f = new Date(inicio); f.setDate(f.getDate()+d);
+  $('cFecha').textContent = f.toLocaleDateString('es-CO',{month:'short',year:'numeric'});
+  $('cPrecioDia').textContent = '$'+Math.round(cicloDatos.precios[d]).toLocaleString('es-CO');
+  $('cBtcAcum').textContent = cicloDatos.serieBtc[d].toLocaleString('es-CO',{maximumFractionDigits:0});
+  $('cInvertido').textContent = fmtUSDc(cicloDatos.compraDia*(d+1));
+}
+
+function dibujarCiclo(hastaDia){
+  const c = $('cicloChart'), dpr = window.devicePixelRatio||1;
+  const W = c.clientWidth, H = 380;
+  c.width = W*dpr; c.height = H*dpr;
+  const ctx = c.getContext('2d'); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  const padL=70, padR=70, padT=20, padB=34;
+  const {precios, serieBtc, piso} = cicloDatos;
+  const maxP = Math.max(...precios)*1.06, minP = Math.min(...precios)*0.94;
+  const maxB = serieBtc[DIAS_CICLO-1]*1.06;
+  const x = d => padL + (d/(DIAS_CICLO-1))*(W-padL-padR);
+  const yP = v => H-padB - ((v-minP)/(maxP-minP))*(H-padT-padB);
+  const yB = v => H-padB - (v/maxB)*(H-padT-padB);
+
+  // zona de acumulación máxima (precio < piso*1.15)
+  ctx.fillStyle='rgba(95,214,139,.08)';
+  let enZona=false, zx=0;
+  for(let d=0;d<DIAS_CICLO;d++){
+    const dentro = precios[d] < piso*1.15;
+    if(dentro && !enZona){ enZona=true; zx=x(d); }
+    if((!dentro||d===DIAS_CICLO-1) && enZona){ enZona=false; ctx.fillRect(zx,padT,x(d)-zx,H-padT-padB); }
+  }
+
+  // rejilla + ejes
+  ctx.strokeStyle='#22453D'; ctx.lineWidth=1; ctx.font='11px IBM Plex Mono'; ctx.fillStyle='#9DBBB0';
+  for(let i=0;i<=4;i++){
+    const gy = padT + i*(H-padT-padB)/4;
+    ctx.beginPath(); ctx.moveTo(padL,gy); ctx.lineTo(W-padR,gy); ctx.stroke();
+    ctx.textAlign='right'; ctx.fillText('$'+compact(minP+(maxP-minP)*(1-i/4)), padL-8, gy+4);
+    ctx.textAlign='left';  ctx.fillText(compact(maxB*(1-i/4))+' ₿', W-padR+8, gy+4);
+  }
+  ctx.textAlign='center';
+  for(let m=0;m<=48;m+=12){ ctx.fillText('mes '+m, x(m*30.44), H-10); }
+
+  // marcador del halving (abril 2028 ≈ mes 21)
+  const xh = x(21*30.44);
+  ctx.beginPath(); ctx.strokeStyle='rgba(95,214,139,.6)'; ctx.lineWidth=1.5; ctx.setLineDash([4,4]);
+  ctx.moveTo(xh, padT); ctx.lineTo(xh, H-padB); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#5FD68B'; ctx.font='600 10px IBM Plex Mono';
+  ctx.fillText('HALVING 2028', xh, padT+12);
+
+  // precio (hasta el día animado)
+  ctx.beginPath(); ctx.strokeStyle='#D8B36A'; ctx.lineWidth=2;
+  for(let d=0;d<=hastaDia;d+=2){ const px=x(d),py=yP(precios[d]); d?ctx.lineTo(px,py):ctx.moveTo(px,py); }
+  ctx.stroke();
+  // btc acumulado
+  ctx.beginPath(); ctx.strokeStyle='#F7931A'; ctx.lineWidth=2.5;
+  for(let d=0;d<=hastaDia;d+=2){ const px=x(d),py=yB(serieBtc[d]); d?ctx.lineTo(px,py):ctx.moveTo(px,py); }
+  ctx.stroke();
+  // marcador del día
+  ctx.beginPath(); ctx.fillStyle='#F7931A';
+  ctx.arc(x(hastaDia), yB(serieBtc[hastaDia]), 5, 0, Math.PI*2); ctx.fill();
+}
+
+function correrCiclo(){
+  if(cicloAnim){ cancelAnimationFrame(cicloAnim); cicloAnim=null; $('btnPlay').textContent='▶ Correr 48 meses'; return; }
+  simularCiclo();
+  cicloDia = 0;
+  $('btnPlay').textContent='⏸ Pausar';
+  const paso = () => {
+    cicloDia = Math.min(DIAS_CICLO-1, cicloDia+6);
+    pintarLector(cicloDia);
+    dibujarCiclo(cicloDia);
+    if(cicloDia < DIAS_CICLO-1){ cicloAnim = requestAnimationFrame(paso); }
+    else { cicloAnim=null; $('btnPlay').textContent='↻ Correr de nuevo'; }
+  };
+  cicloAnim = requestAnimationFrame(paso);
+}
+
+
+['rRecaudo','rAnios','rDespliegue','rApy'].forEach(id=>$(id).addEventListener('input',actualizar));
+['nPrecio','nTrm'].forEach(id=>$(id).addEventListener('change',actualizar));
+document.querySelectorAll('.escenarios button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.escenarios button').forEach(x=>x.classList.remove('activo'));
+    b.classList.add('activo'); cagr = parseFloat(b.dataset.cagr); actualizar();
+  });
+});
+window.addEventListener('resize',()=>{actualizar(); if(cicloDatos) dibujarCiclo(cicloDia); if(retroSerie) calcularRetro();});
+$('btnPlay').addEventListener('click', correrCiclo);
+['cCompra','cPiso','cTecho'].forEach(id=>$(id).addEventListener('change',simularCiclo));
+
+// ================== RETROSPECTIVA (7 ago 2022 → hoy, precios reales) ==================
+// Anclas mensuales aproximadas (respaldo si CoinGecko no responde); se reemplazan por datos diarios reales al cargar.
+const RETRO_ANCLAS = [
+  ['2022-08',23300],['2022-09',20050],['2022-10',19400],['2022-11',20500],['2022-12',17100],
+  ['2023-01',16600],['2023-02',23100],['2023-03',23500],['2023-04',28500],['2023-05',29300],['2023-06',27200],
+  ['2023-07',30500],['2023-08',29200],['2023-09',26000],['2023-10',27000],['2023-11',34500],['2023-12',37700],
+  ['2024-01',42300],['2024-02',42600],['2024-03',61200],['2024-04',71300],['2024-05',60600],['2024-06',67500],
+  ['2024-07',62700],['2024-08',64600],['2024-09',59000],['2024-10',63300],['2024-11',70000],['2024-12',96400],
+  ['2025-01',93400],['2025-02',102000],['2025-03',84400],['2025-04',82500],['2025-05',94200],['2025-06',104600],
+  ['2025-07',107100],['2025-08',116000],['2025-09',108000],['2025-10',114000],['2025-11',110000],['2025-12',91000],
+  ['2026-01',88000],['2026-02',95000],['2026-03',88000],['2026-04',80000],['2026-05',74000],['2026-06',68000]
+];
+const RETRO_INICIO = Date.UTC(2022,7,7); // 7 ago 2022
+let retroSerie = null, retroEsReal = false;
+
+function construirRetroRespaldo(){
+  const dias = Math.floor((Date.now() - RETRO_INICIO)/86400000);
+  const puntos = RETRO_ANCLAS.map(a => {
+    const [y,mo] = a[0].split('-').map(Number);
+    return {t: Date.UTC(y, mo-1, 1), p: a[1]};
+  });
+  puntos.push({t: Date.now(), p: precioBTC});
+  const serie = [];
+  for(let d=0; d<=dias; d++){
+    const t = RETRO_INICIO + d*86400000;
+    let a=puntos[0], b=puntos[puntos.length-1];
+    for(let i=0;i<puntos.length-1;i++){ if(t>=puntos[i].t && t<=puntos[i+1].t){ a=puntos[i]; b=puntos[i+1]; break; } }
+    const f = b.t===a.t ? 0 : (t-a.t)/(b.t-a.t);
+    serie.push(Math.exp(Math.log(a.p) + (Math.log(b.p)-Math.log(a.p))*f));
+  }
+  return serie;
+}
+
+function calcularRetro(){
+  if(!retroSerie) return;
+  const compra = Math.max(100, parseFloat($('rCompraRetro').value)||800000);
+  let btc=0, inv=0;
+  const acumulado = new Array(retroSerie.length);
+  for(let d=0; d<retroSerie.length; d++){ btc += compra/retroSerie[d]; inv += compra; acumulado[d]=btc; }
+  const valorHoy = btc * precioBTC;
+  $('retroBtc').textContent = fmtBTC(btc,0);
+  $('retroInv').textContent = fmtUSDc(inv);
+  $('retroProm').textContent = 'USD ' + Math.round(inv/btc).toLocaleString('es-CO');
+  $('retroValor').textContent = fmtUSDc(valorHoy);
+  $('retroMult').textContent = '×' + (valorHoy/inv).toLocaleString('es-CO',{maximumFractionDigits:2});
+  $('retroPunch').textContent = 'Hoy Colombia recibiría ' + Math.round(btc).toLocaleString('es-CO') +
+    ' BTC — más que las reservas de El Salvador y Bután juntas. Ese es el costo de no haber empezado. La buena noticia: la misma decisión sigue disponible hoy.';
+  dibujarRetro(acumulado);
+}
+
+function dibujarRetro(acumulado){
+  const c = $('retroChart'), dpr = window.devicePixelRatio||1;
+  const W = c.clientWidth, H = 360;
+  c.width = W*dpr; c.height = H*dpr;
+  const ctx = c.getContext('2d'); ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,W,H);
+  const padL=70, padR=70, padT=20, padB=34;
+  const n = retroSerie.length;
+  const maxP = Math.max(...retroSerie)*1.06, minP = Math.min(...retroSerie)*0.9;
+  const maxB = acumulado[n-1]*1.06;
+  const x = d => padL + (d/(n-1))*(W-padL-padR);
+  const yP = v => H-padB - ((v-minP)/(maxP-minP))*(H-padT-padB);
+  const yB = v => H-padB - (v/maxB)*(H-padT-padB);
+
+  ctx.strokeStyle='#22453D'; ctx.lineWidth=1; ctx.font='11px IBM Plex Mono'; ctx.fillStyle='#9DBBB0';
+  for(let i=0;i<=4;i++){
+    const gy = padT + i*(H-padT-padB)/4;
+    ctx.beginPath(); ctx.moveTo(padL,gy); ctx.lineTo(W-padR,gy); ctx.stroke();
+    ctx.textAlign='right'; ctx.fillText('$'+compact(minP+(maxP-minP)*(1-i/4)), padL-8, gy+4);
+    ctx.textAlign='left';  ctx.fillText(compact(maxB*(1-i/4))+' ₿', W-padR+8, gy+4);
+  }
+  // etiquetas de años
+  ctx.textAlign='center';
+  const anios = [[Date.UTC(2023,0,1),'2023'],[Date.UTC(2024,0,1),'2024'],[Date.UTC(2025,0,1),'2025'],[Date.UTC(2026,0,1),'2026']];
+  anios.forEach(a=>{ const d=(a[0]-RETRO_INICIO)/86400000; if(d>0&&d<n) ctx.fillText(a[1], x(d), H-10); });
+
+  // halving abril 2024
+  const dh = (Date.UTC(2024,3,20)-RETRO_INICIO)/86400000;
+  const xh = x(dh);
+  ctx.beginPath(); ctx.strokeStyle='rgba(95,214,139,.6)'; ctx.lineWidth=1.5; ctx.setLineDash([4,4]);
+  ctx.moveTo(xh, padT); ctx.lineTo(xh, H-padB); ctx.stroke(); ctx.setLineDash([]);
+  ctx.fillStyle='#5FD68B'; ctx.font='600 10px IBM Plex Mono';
+  ctx.fillText('HALVING ABR 2024', xh, padT+12);
+  // FTX nov 2022
+  const df = (Date.UTC(2022,10,10)-RETRO_INICIO)/86400000;
+  ctx.fillStyle='#E56A5A'; ctx.fillText('FTX', x(df), padT+12);
+
+  // precio real
+  ctx.beginPath(); ctx.strokeStyle='#D8B36A'; ctx.lineWidth=1.8;
+  for(let d=0; d<n; d+=2){ const px=x(d),py=yP(retroSerie[d]); d?ctx.lineTo(px,py):ctx.moveTo(px,py); }
+  ctx.stroke();
+  // btc acumulado
+  ctx.beginPath(); ctx.strokeStyle='#F7931A'; ctx.lineWidth=2.5;
+  for(let d=0; d<n; d+=2){ const px=x(d),py=yB(acumulado[d]); d?ctx.lineTo(px,py):ctx.moveTo(px,py); }
+  ctx.stroke();
+}
+
+async function intentarRetroReal(){
+  try{
+    const r = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=max&interval=daily',{signal:AbortSignal.timeout(9000)});
+    const j = await r.json();
+    if(j?.prices?.length > 1200){
+      const serie = j.prices.filter(p=>p[0]>=RETRO_INICIO).map(p=>p[1]);
+      if(serie.length > 1200){
+        retroSerie = serie; retroEsReal = true;
+        $('retroFuente').textContent = 'Serie histórica: datos diarios reales · CoinGecko';
+        calcularRetro();
+        return;
+      }
+    }
+    throw new Error('datos insuficientes');
+  }catch(e){
+    $('retroFuente').textContent = 'Serie histórica: aproximación mensual verificable (CoinGecko no disponible en este momento)';
+  }
+}
+
+function inicializarRetro(){
+  retroSerie = construirRetroRespaldo();
+  $('retroFuente').textContent = 'Serie histórica: aproximación mensual · intentando cargar datos diarios reales…';
+  calcularRetro();
+  intentarRetroReal();
+}
+$('rCompraRetro').addEventListener('change', calcularRetro);
+
+
+(function(){
+  const objetivos = document.querySelectorAll('section .wrap > *, .contador');
+  objetivos.forEach(el => el.classList.add('reveal'));
+  const obs = new IntersectionObserver(entradas => {
+    entradas.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  objetivos.forEach(el => obs.observe(el));
+})();
+
+actualizar();
+simularCiclo();
+inicializarRetro();
+intentarPrecioVivo();
+</script>
 </body>
 </html>
