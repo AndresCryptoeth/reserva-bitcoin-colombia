@@ -288,6 +288,57 @@ canvas{width:100%;border:1px solid var(--linea);border-radius:14px;background:#f
 footer{background:var(--ink-bg);padding:56px 0 64px;font-size:.82rem;color:#A9A3B8}
 footer b{color:#fff}
 .aviso{border:1px solid var(--linea);border-left:3px solid var(--acc);border-radius:12px;padding:16px 20px;margin-top:18px;font-size:.82rem;color:var(--tinta-2);background:var(--panel)}
+
+/* ---------- nav: sección activa (scroll-spy) ---------- */
+.nav-links a.activo{color:var(--acc);font-weight:600}
+.nav-links a:not(.btn-cta){position:relative;padding-bottom:3px}
+.nav-links a:not(.btn-cta)::after{
+  content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
+  background:var(--grad);border-radius:2px;transition:width .25s ease;
+}
+.nav-links a.activo::after{width:100%}
+
+/* ---------- índice de contenidos ---------- */
+.indice{
+  border:1px solid var(--linea);border-radius:20px;background:var(--panel);
+  padding:28px clamp(20px,3vw,34px);box-shadow:var(--sombra);margin-top:38px;
+}
+.indice-titulo{
+  font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--tinta-suave);font-weight:600;margin-bottom:18px;
+}
+.indice-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:2px 26px}
+.indice-item{
+  display:flex;gap:14px;align-items:baseline;text-decoration:none;
+  padding:11px 12px;border-radius:10px;transition:background .16s,transform .16s;
+  border-bottom:1px solid var(--linea);
+}
+.indice-item:hover{background:var(--panel-2);transform:translateX(3px)}
+.indice-item:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.indice-num{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;
+  color:var(--acc);flex-shrink:0;min-width:22px;
+}
+.indice-texto{font-size:.92rem;color:var(--tinta-2);line-height:1.4}
+.indice-texto b{color:var(--tinta);font-weight:600;display:block;font-size:.95rem}
+.indice-texto span{font-size:.78rem;color:var(--tinta-suave)}
+@media(max-width:640px){.indice-grid{grid-template-columns:1fr}}
+
+/* ---------- impresión ---------- */
+@media print{
+  header,.nav-links,.indice,.btn-cta,.btn-ghost,.btn-play,iframe,.tira-compras,.wave{display:none !important}
+  .reveal{opacity:1 !important;transform:none !important}
+  body{font-size:11pt;background:#fff}
+  section{padding:22px 0;page-break-inside:avoid;background:#fff !important}
+  h1{font-size:20pt}h2{font-size:14pt}
+  .dato,.pilar,.res,.cadencia,.contador{box-shadow:none;break-inside:avoid}
+  .contador{background:#fff !important;border:1px solid #ccc}
+  .contador .cifra-label,.contador .compra{color:#555 !important}
+  .cifra-media.blanca{color:#111 !important}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#666;word-break:break-all}
+  footer{background:#fff;color:#111;border-top:1px solid #ccc}
+  footer b{color:#111}
+}
 </style>
 </head>
 <body>
@@ -296,11 +347,12 @@ footer b{color:#fff}
   <div class="wrap">
     <div class="marca">Reserva Estratégica de <span>Activos Digitales</span> · Colombia</div>
     <nav class="nav-links" aria-label="Secciones">
-      <a href="#resumen">El resumen</a>
-      <a href="#sae">El problema</a>
-      <a href="#ciclo">La solución</a>
-      <a href="#riesgos">Los riesgos</a>
-      <a href="#ruta">La ruta</a>
+      <a href="#resumen" data-cubre="resumen">El resumen</a>
+      <a href="#sae" data-cubre="sae politica">El problema</a>
+      <a href="#retro" data-cubre="retro ciclo">La solución</a>
+      <a href="#paises" data-cubre="paises contexto activos">El mundo</a>
+      <a href="#riesgos" data-cubre="riesgos">Los riesgos</a>
+      <a href="#ruta" data-cubre="ruta">La ruta</a>
       <a href="#pedido" class="btn-cta">El pedido →</a>
     </nav>
     <div class="precio-vivo">BTC/USD <b id="hPrecio">—</b> · TRM <b id="hTrm">—</b> <span id="hFuentePrecio"></span></div>
@@ -324,6 +376,23 @@ footer b{color:#fff}
     </ol>
 
     <p class="fuente">Simulación construida con cifras públicas de la SAE, la TRM oficial y el precio de mercado de los activos. Ajusta los supuestos abajo.</p>
+
+    <nav class="indice" aria-label="Índice del documento">
+      <div class="indice-titulo">Índice del documento · 11 secciones</div>
+      <div class="indice-grid">
+        <a class="indice-item" href="#resumen"><span class="indice-num">00</span><span class="indice-texto"><b>El resumen</b><span>La propuesta en una página</span></span></a>
+        <a class="indice-item" href="#sae"><span class="indice-num">01</span><span class="indice-texto"><b>El problema</b><span>Qué cuesta hoy administrar lo incautado</span></span></a>
+        <a class="indice-item" href="#politica"><span class="indice-num">02</span><span class="indice-texto"><b>La política monetaria</b><span>Por qué su escasez es predecible</span></span></a>
+        <a class="indice-item" href="#retro"><span class="indice-num">03</span><span class="indice-texto"><b>La prueba retrospectiva</b><span>Qué habría entregado cada gobierno</span></span></a>
+        <a class="indice-item" href="#ciclo"><span class="indice-num">04</span><span class="indice-texto"><b>La solución</b><span>El ciclo del mandato, día a día</span></span></a>
+        <a class="indice-item" href="#paises"><span class="indice-num">05</span><span class="indice-texto"><b>El precedente internacional</b><span>Quién ya acumula reservas</span></span></a>
+        <a class="indice-item" href="#contexto"><span class="indice-num">06</span><span class="indice-texto"><b>El contexto global</b><span>El plano del BIS y la tokenización</span></span></a>
+        <a class="indice-item" href="#activos"><span class="indice-num">07</span><span class="indice-texto"><b>El activo</b><span>Bitcoin como núcleo de la reserva</span></span></a>
+        <a class="indice-item" href="#riesgos"><span class="indice-num">08</span><span class="indice-texto"><b>Riesgos y salvaguardas</b><span>Las preguntas difíciles, de frente</span></span></a>
+        <a class="indice-item" href="#ruta"><span class="indice-num">09</span><span class="indice-texto"><b>La ruta</b><span>De documento a política de Estado</span></span></a>
+        <a class="indice-item" href="#pedido"><span class="indice-num">10</span><span class="indice-texto"><b>El pedido</b><span>Lo único que se solicita hoy</span></span></a>
+      </div>
+    </nav>
   </div>
 </div>
 
@@ -351,7 +420,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#F4F0FB"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#F5F5F7"></path></svg></div>
 
-<!-- ============ LA SAE EN CIFRAS ============ -->
+<!-- ============ 01 · LA SAE EN CIFRAS ============ -->
 <section id="sae" class="sec-soft">
   <div class="wrap">
     <div class="eyebrow">01 · El problema · El punto de partida</div>
@@ -438,7 +507,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#ffffff"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#F5F5F7"></path></svg></div>
 
-<!-- ============ RETROSPECTIVA ============ -->
+<!-- ============ 03 · RETROSPECTIVA ============ -->
 <section id="retro" class="sec-soft">
   <div class="wrap">
     <div class="eyebrow">03 · La prueba retrospectiva · Con precios históricos reales</div>
@@ -486,7 +555,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#F5F5F7"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#F4F0FB"></path></svg></div>
 
-<!-- ============ CICLO 48 MESES ============ -->
+<!-- ============ 04 · CICLO 48 MESES ============ -->
 <section id="ciclo" class="sec-tint">
   <div class="wrap">
     <div class="eyebrow">04 · La solución · El ciclo del mandato, comprando todos los días</div>
@@ -544,7 +613,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#F4F0FB"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#F5F5F7"></path></svg></div>
 
-<!-- ============ EL MAPA MUNDIAL · PAÍSES Y RESERVAS ============ -->
+<!-- ============ 05 · EL MAPA MUNDIAL · PAÍSES Y RESERVAS ============ -->
 <section id="paises" class="sec-soft">
   <div class="wrap">
     <div class="eyebrow">05 · El precedente internacional · Quién ya acumula reservas</div>
@@ -573,7 +642,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#F5F5F7"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#ffffff"></path></svg></div>
 
-<!-- ============ 00 · EL CONTEXTO GLOBAL ============ -->
+<!-- ============ 06 · EL CONTEXTO GLOBAL ============ -->
 <section id="contexto">
   <div class="wrap">
     <div class="eyebrow">06 · El contexto global · Lo que ya está ocurriendo</div>
@@ -712,7 +781,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#ffffff"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#F5F5F7"></path></svg></div>
 
-<!-- ============ 06 · EL ACTIVO · BITCOIN COMO NÚCLEO ============ -->
+<!-- ============ 07 · EL ACTIVO · BITCOIN COMO NÚCLEO ============ -->
 <section id="activos" class="sec-soft">
   <div class="wrap">
     <div class="eyebrow">07 · El activo · Bitcoin como núcleo</div>
@@ -745,7 +814,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#F5F5F7"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#ffffff"></path></svg></div>
 
-<!-- ============ 07 · RIESGOS Y SALVAGUARDAS ============ -->
+<!-- ============ 08 · RIESGOS Y SALVAGUARDAS ============ -->
 <section id="riesgos">
   <div class="wrap">
     <div class="eyebrow">08 · Riesgos y salvaguardas · Las preguntas difíciles, de frente</div>
@@ -769,7 +838,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#ffffff"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#F4F0FB"></path></svg></div>
 
-<!-- ============ LA RUTA ============ -->
+<!-- ============ 09 · LA RUTA ============ -->
 <section id="ruta" class="sec-tint">
   <div class="wrap">
     <div class="eyebrow">09 · La ruta · De documento a política de Estado, con fechas</div>
@@ -791,7 +860,7 @@ footer b{color:#fff}
 
 <div class="wave" style="background:#F4F0FB"><svg viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true"><path d="M0,24 C240,48 480,4 720,20 C960,36 1200,52 1440,28 L1440,48 L0,48 Z" fill="#F5F5F7"></path></svg></div>
 
-<!-- ============ EL PEDIDO ============ -->
+<!-- ============ 10 · EL PEDIDO ============ -->
 <section id="pedido" class="sec-soft">
   <div class="wrap">
     <div class="eyebrow">10 · El pedido · Lo único que esta propuesta solicita hoy</div>
@@ -1334,6 +1403,32 @@ let retroSerie = true;
     entradas.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } });
   }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
   objetivos.forEach(el => obs.observe(el));
+})();
+
+// ================== SCROLL-SPY DE LA NAVEGACIÓN ==================
+(function(){
+  const enlaces = [...document.querySelectorAll('.nav-links a[data-cubre]')];
+  if(!enlaces.length) return;
+  // mapa: id de sección -> enlace de la nav que la representa
+  const mapa = new Map();
+  enlaces.forEach(a => a.dataset.cubre.split(' ').forEach(id => mapa.set(id, a)));
+  const secciones = [...mapa.keys()].map(id => document.getElementById(id)).filter(Boolean);
+  if(!secciones.length) return;
+
+  let activo = null;
+  const marcar = el => {
+    if(el === activo) return;
+    enlaces.forEach(a => a.classList.remove('activo'));
+    if(el) el.classList.add('activo');
+    activo = el;
+  };
+  const obs = new IntersectionObserver(entradas => {
+    // de las secciones visibles, la que esté más arriba manda
+    const visibles = entradas.filter(e => e.isIntersecting)
+      .sort((a,b) => a.boundingClientRect.top - b.boundingClientRect.top);
+    if(visibles.length) marcar(mapa.get(visibles[0].target.id));
+  }, { rootMargin: '-78px 0px -55% 0px', threshold: 0 });
+  secciones.forEach(s => obs.observe(s));
 })();
 
 pintarHeader();
